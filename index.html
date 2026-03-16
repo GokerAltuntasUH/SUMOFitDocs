@@ -48,7 +48,6 @@
                <sub>Collects functions to query <a href="#network_class">Network class</a> instances.</sub>
             </summary>
             <p>
-               <br>
                The <a href="#domain_queries">queries</a> sub-module includes functions that query the elements associated with the <a href="#network_class">Network class</a> instance. This approach helps keep the <a href="#network_class">Network class</a> definition clean and conserve its data-oriented role.
             </p>
             <ul>
@@ -306,7 +305,6 @@
                <sub>Collection of the FlowElement class instances travels through the Network</sub>
             </summary>
             <p>
-               <br>
                The FlowSet class can be taken as the demand equivalent of the <a href="#network_class">Network class</a>. A FlowSet class instance is generated from the network,
                automatically calculating all the possible flows and discovering loops with the potential to act as a Roundabout.
                The major architectural difference is that the FlowSet class does not yet have entity-specific managers, such as the <a href="#node_manager_class">NodeManager </a> and <a href="#chain_manager_class">ChainManager </a> classes.
@@ -436,7 +434,6 @@
                <sub>Designed to control Network-level entities involving both Nodes and Edges: EdgeChains and Loops</sub>
             </summary>
             <p>
-               <br>
                ChainManager is designed to handle operations that require network-level knowledge. For example, a Loop class instance operates on both Edge and Node instances, and these operations are managed by the ChainManager.
             </p>
             <h4>Properties</h4>
@@ -542,8 +539,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -551,7 +546,6 @@
                <sub>An Edge is the single segment between two nodes. See also: EdgeChain</sub>
             </summary>
             <p>
-               <br>
                Manages Edge-level operations regarding edges and lanes
             </p>
             <h4>Properties</h4>
@@ -651,8 +645,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -660,7 +652,6 @@
                <sub>Controls all the types of nodes, except the SuperNode, a realisation of Loops.</sub>
             </summary>
             <p>
-               <br>
                Manages Node-level operations regarding edges and lanes
             </p>
             <h4>Properties</h4>
@@ -816,7 +807,6 @@
                <sub>Helps assign a unique id for elements of the <a href="#network_class">Network class</a></sub>
             </summary>
             <p>
-               <br>
                Currently applied to Loops and SSMParsers, and is under development.
             </p>
          </details>
@@ -838,7 +828,6 @@
                <sub>A single segment between two nodes, see also EdgeChain</sub>
             </summary>
             <p>
-               <br>
                An Edge object helps construct the EdgeChain. Practically, any characteristic change in the Civil3D alignment within the same region will trigger a new Edge class element.
                Edge class elements cluster together to create EdgeChain class instances that correspond to the entire Civil3D region.
             </p>
@@ -893,8 +882,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -902,7 +889,6 @@
                <sub>Collection of Edges separated only by Auxiliary Nodes.</sub>
             </summary>
             <p>
-               <br>
                In SUMO, Edges may have a polyline geometry. An "Edge" in SUMOFit represents a single segment,
                while an EdgeChain represents the entire Edge in SUMO. When writing the "Edges.XML" (See Scenario Builder)
                Edge elements of SUMOFit are ignored, and their collective forms, EdgeChain elements, are translated into SUMO edges.
@@ -953,8 +939,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -962,7 +946,6 @@
                <sub>Helps implement string-type properties by assigning integers</sub>
             </summary>
             <p>
-               <br>
                Helps implement string-type properties by assigning integers
             </p>
             <h4>Elements:</h4>
@@ -1041,8 +1024,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -1050,7 +1031,6 @@
                <sub>A class that is to align with SUMO's internal flow mechanism</sub>
             </summary>
             <p>
-               <br>
                Represents a series of EdgeChains to pass through when travelling from specific origins to destinations.
             </p>
             <h4>Properties</h4>
@@ -1124,8 +1104,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -1133,7 +1111,6 @@
                <sub>Corresponds representation of Civil3D assemblies in SUMO environment.</sub>
             </summary>
             <p>
-               <br>
                A LaneConfiguration instance contains a list of Lane instances, each representing a sub-assembly in Civil3D. A LaneConfiguration element handles metadata, such as the total road width and the offset from the road centre to the OSM line position.
             </p>
             <h4>Properties</h4>
@@ -1177,8 +1154,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -1186,7 +1161,6 @@
                <sub>Internal loops identified in the <a href="#network_class">Network class</a> instance during the creation of the <a href="#flowset_class">FlowSet class</a> instances.</sub>
             </summary>
             <p>
-               <br>
                Topologically, identified loops imply a potential to become a Roundabout as the realisation form.
                While the same loop in the topology can have various realisation forms (FreeFlow, Ronundabout, SuperNode), the Agent can decide by changing a single parameter of any node in the Loop.
                Corresponding elements (Edges, Nodes, FlowElements) respond automatically.
@@ -1286,8 +1260,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -1295,7 +1267,6 @@
                <sub>Represents points of characteristic changes in the road corridor's geometry</sub>
             </summary>
             <p>
-               <br>
                Node elements are not explicitly represented in Civil3D. Therefore, parsed during the data export phase using a complementary algorithm.
                The Node class represents the parent definition for subclasses. The following subclasses are defined explicitly, but not mentioned in this documentation, as all the subtypes inherit from the base Node class explained in this section.
                <ul>
@@ -1367,8 +1338,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
          <details>
             <summary>
@@ -1376,7 +1345,6 @@
                <sub>Each FlowElement in the network is followed by a series of a specific Vehicle Type</sub>
             </summary>
             <p>
-               <br>
                Vehicle types are a SUMO-oriented concept that determines car features and the SSMs to be tracked.
             </p>
             <h4>Properties</h4>
@@ -1438,8 +1406,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
       </div>
 
@@ -1453,7 +1419,6 @@
                <sub>An application of the Gymnasium environment over the SUMO network</sub>
             </summary>
             <p>
-               <br>
                SUMOFitEnv class instances create Gymnasium environments using the given <a href="#network_class">Network class</a> instance. The instance is responsible for modifying the network based on the agent's decisions and calculating rewards by running the simulation.
             </p>
             <h4>Properties</h4>
@@ -1644,8 +1609,6 @@
                   </ul>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
       </div>
 
@@ -1662,7 +1625,6 @@
                <sub>SUMO-specific inputs and outputs</sub>
             </summary>
             <p>
-               <br>
                Designed to accommodate the data traffic between SUMOFit and SUMO
             </p>
             <h4>bin_locator</h4>
@@ -1883,7 +1845,6 @@
                <sub>Sub-module that contains functions that parse the JSON data extracted from the Civil3D model</sub>
             </summary>
             <p>
-               <br>
                Reads the JSON data extracted by "NetExport", a complementary project and constructs the class instances under the data_structures module.
             </p>
             <ul>
@@ -1920,8 +1881,6 @@
                   <sub>Expected to be triggered by the from_json_data() method of the <a href="#chain_manager_class">ChainManager class</a>, where the source argument is "civil3d".</sub>
                </li>
             </ul>
-            <br>
-            <br>
          </details>
       </div>
 
