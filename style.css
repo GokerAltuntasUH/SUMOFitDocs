@@ -1,0 +1,121 @@
+html {
+    font-size: 20px;
+}
+
+/* Defaults */
+body {
+    font-family: 'Calibri';
+    font-weight: bold;
+    line-height: 1.6;
+    color: #666666;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 2rem;
+}
+
+/* Main titles */
+details {
+    font-size: 1.4em;   /*compares to html*/
+    color: #576880;
+    background-color:#F8F9FA;
+    border: 1px solid #dddfe0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+}
+
+details summary {
+    cursor: pointer;
+}
+
+/* Module Titles */
+h3 {
+    font-size: 1em; /*compares to details*/
+    margin-bottom: 0.2rem;
+}
+
+/* Module Descriptions */
+details p {
+    font-size: 0.75em; /* compares to details */
+    font-weight: normal;
+}
+
+/* Class Cards - No size impact */
+details details {
+    font-size: 1em; /* compares to details */
+    background: #fff;
+    border-color: #e6e6e6;
+    margin-top: 1rem;
+}
+
+
+/* Class Title */
+details details summary {
+    font-size: 0.8em;       /*compares to details details*/
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    padding-bottom: 0rem;   /* adds space between title sub and description */
+}
+
+/* Class Title Subtext */
+details details summary sub {
+    font-weight: normal;
+    font-size: 0.8em;  /*compares to details details summary*/
+    vertical-align: sub;
+}
+
+/* Class Description */
+details details p {
+    font-size: 0.65em;  /* compares to details details */
+    font-weight: normal;
+    margin-top: 0rem;
+    padding-top: 0rem;
+}
+
+/* Class Card Section Titles */
+h4 {
+    font-size: 0.75em; /*compares to details details */
+    margin-bottom: 0.5rem;
+}
+
+/* Class Card List Blocs */
+details details ul {
+    font-size: 0.65em; /* compares to details details */
+    font-weight: normal;
+    margin-top: 0rem;
+    margin-left: 0rem;
+}
+
+/* Class Card List Items */
+details details ul li {
+    font-size: 1em; /* compares to details details */
+    font-weight: normal;
+    margin-top: 0rem;
+    margin-left: 0rem;
+    margin-bottom: 0.6rem;
+}
+
+/* Class Card List Items Subs */
+details details ul li sub {
+    font-size: 0.8em; /* compares to details details */
+    font-weight: normal;
+        color: #576880b9;
+    margin-top: 0rem;
+    margin-left: 0rem;
+}
+
+/* Class Card List Sub-List Blocks */
+details details ul li ul {
+    font-size: 1em; /* compares to details details */
+    font-weight: normal;
+    margin-top: 0rem;
+    margin-left: 0.01rem;
+}
+
+
+hr {
+    border: none;
+    border-top: 1px solid #576880;
+    margin: 1rem 0;
+}
