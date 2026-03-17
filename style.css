@@ -113,6 +113,25 @@ details details ul li ul {
     margin-left: 0.01rem;
 }
 
+details h2 {
+    font-size: 1em; /*compares to details*/
+}
+
+details ul {
+    font-size: 0.75em; /* compares to details */
+    font-weight: normal;
+}
+
+details ul li {
+    font-size: 1em; /* compares to details ul */
+    font-weight: normal;
+}
+
+details ul li ul {
+    font-size: 1em; /* compares to details ul li */
+    font-weight: normal;
+}
+
 
 hr {
     border: none;
