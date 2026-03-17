@@ -138,3 +138,15 @@ hr {
     border-top: 1px solid #576880;
     margin: 1rem 0;
 }
+
+.EU-statement-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.EU-statement-row img {
+    width: 7%;
+    height: auto;
+    max-width: 300px;
+}
