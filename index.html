@@ -688,27 +688,23 @@
                   The following properties are conserved between the episodes
                   <ul>
                      <li>
-                        <b>base_network</b><br>
+                        <b>base network</b><br>
                         The <a href="#network_class">Network class</a> instance to be modified and evaluated by the SUMOFitEnv element.
                      </li>
                      <li>
-                        <b>base_flowset</b><br>
+                        <b>base flowset</b><br>
                         The <a href="#flowset_class">FlowSet class</a> instance represents the auto-generated demand elements
                      </li>
                      <li>
-                        <b>test_name</b><br>
+                        <b>test name</b><br>
                         A string value is given at each run. Simulation files, results and ML weights are stored using the test_name property of the SUMOFitEnv. On a project-wide basis, a test name is automatically assigned using a timestamp.
                      </li>
                      <li>
-                        <b>sumo_seed</b><br>
-                        An integer value controls the randomness in SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>.
-                     </li>
-                     <li>
-                        <b>_scenario_builder</b><br>
+                        <b>scenario builder</b><br>
                         A SUMOSCenarioBuilder class instance that creates SUMO-specific <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files at each step.
                      </li>
                      <li>
-                        <b>score_dict</b><br>
+                        <b>score dict</b><br>
                         A dictionary maps the metrics to be collected from SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>, along with their weights used to calculate the environment score at each step.
                      </li>
                      <li>
@@ -724,19 +720,19 @@
                         Number of geometric features of nodes, currently limited to X and Y coordinates.
                      </li>
                      <li>
-                        <b>max_episode_steps</b><br>
+                        <b>max episode steps</b><br>
                         Number of steps to terminate an episode, if any other threshold is not met.
                      </li>
                      <li>
-                        <b>max_move</b><br>
+                        <b>max move</b><br>
                         Maximum length of the move vector that can be applied to a node by the agent.
                      </li>
                      <li>
-                        <b>observation_space</b><br>
+                        <b>observation space</b><br>
                         A dictionary element to store the agent's observation at each step.
                      </li>
                      <li>
-                        <b>action_space</b><br>
+                        <b>action space</b><br>
                         A dictionary element defines the scope of actions the agent can take.
                      </li>
                   </ul>
@@ -747,32 +743,24 @@
                   The word "construction" refers to the values calculated during the initialisation of the SUMOFitEnv using the base <a href="#network_class">Network class</a> instance.
                   <ul>
                      <li>
-                        <b>construction_node_features</b><br>
+                        <b>construction node features</b><br>
                         Refers to the normalised values of the node features.
                      </li>
                      <li>
-                        <b>construction_node_types</b><br>
+                        <b>construction node types</b><br>
                         Refers to the integer values of the node types
                      </li>
                      <li>
-                        <b>construction_spatial_values</b><br>
+                        <b>construction realisation forms</b><br>
                         Refers to the integer values of the RealisationFormEnumeration values
                      </li>
                      <li>
-                        <b>construction_node_mask</b><br>
+                        <b>construction node mask</b><br>
                         Refers to the padding that indicates slots reserved for future nodes created by the agent.
                         Node creation logic is currently under development.
                      </li>
                      <li>
-                        <b>construction_slot_to_guid</b><br>
-                        Maps the Node slots in the SUMOFitEnv to the Node instances in the <a href="#network_class">Network class</a> instance.
-                     </li>
-                     <li>
-                        <b>construction_guid_to_slot</b><br>
-                        Maps the Node instances in the <a href="#network_class">Network class</a> instance to the Node slots in the SUMOFitEnv.
-                     </li>
-                     <li>
-                        <b>construction_score</b><br>
+                        <b>construction score</b><br>
                         Keeps the score at the initial state of the <a href="#network_class">Network class</a> instance to avoid the simulation running after each reset.
                      </li>
                   </ul>
@@ -782,13 +770,13 @@
                   SUMOFitEnv logic updates the following properties after each step in an episode.
                   <ul>
                      <li>
-                        <b>_last_obs</b><br>
+                        <b>last observations</b><br>
                         A dictionary to track the latest state of the <a href="#network_class">Network class</a> instance, initialised by the:
                         <ul>
-                           <li>construction_node_features</li>
-                           <li>construction_node_types</li>
-                           <li>construction_spatial_features</li>
-                           <li>construction_node_mask</li>
+                           <li>construction node features</li>
+                           <li>construction node types</li>
+                           <li>construction spatial features</li>
+                           <li>construction node mask</li>
                         </ul>
                         properties of the network, and updated in each step without altering the original properties.
                      </li>
@@ -801,26 +789,23 @@
                   <b>Stepping Logic</b>
                   <ul>
                      <li>
-                        <b>reset</b>(seed: int, options: Dict[str, Any]):<br>
-                        Reconstructs the <a href="#network_class">Network</a> and the <a href="#flowset_class">FlowSet</a> before an episode starts. As with general practice, the reset() method is always called when a SUMOFitEnv is initialised. The method avoids running the simulation.
-                        The initial score is rather calculated during the class's initialisation, only once for efficiency. The method returns the _last_obs property and additional info.
+                        <b>reset:</b><br>
+                        Reconstructs the <a href="#network_class">Network</a> and the <a href="#flowset_class">FlowSet</a> before an episode starts.
                      </li>
                      <li>
-                        <b>step</b>(acton: Dict[str, Any]):<br>
-                        Applies the action specified by the action argument, then calculates the score. The reward is calculated by the difference between the current and the previous scores.
-                        The method returns the class's _last_obs property, the calculated reward, whether the step is terminated or truncated, and any additional information.
+                        <b>step:</b><br>
+                        Applies the action specified by the action argument, then calculates the score.
+                        The method returns the calculated reward, whether the step is terminated or truncated, and any additional information.
                      </li>
                      <li>
-                        <b>move_node</b>(action: dict[str, tuple], node_ind: int):<br>
+                        <b>move_node:</b><br>
                         Moves the node with the given node_ind by the given move vector in the action argument.
                         The method returns a boolean indicating whether the action was successful, with a message.<br>
-                        <sub>Expected to be triggered by the self's step() method.</sub>
                      </li>
                      <li>
-                        <b>spatial_change</b>(action: dict[str, tuple], node_ind: int):<br>
+                        <b>rform_change:</b><br>
                         Triggers a change in the "RealisationForm" in a Loop class, if the node with the given node_id is involved in the Loop.
                         The method returns a boolean indicating whether the action was successful, with a message.<br>
-                        <sub>Expected to be triggered by the self's step() method.</sub>
                      </li>
                   </ul>
                </li>
@@ -828,43 +813,12 @@
                   <b>Simulation Logic</b>
                   <ul>
                      <li>
-                        <b>create_sumo_scenario</b>(episode_id: int, step_id: int, overrite: bool):<br>
+                        <b>create sumo scenario:</b><br>
                         Creates the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files for the given episode and given step, and returns the step-specific directory, a common file name shared between SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files, and the unique TraCI label to differentiate between simulations run in parallel.<br>
-                        <sub>Expected to be called by the self's step() method.</sub>
                      </li>
                      <li>
-                        <b>calculate_network_score</b>(target_dir: str, common_file_name: str, traci_label: str):<br>
+                        <b>calculate network score:</b><br>
                         Given the directories, triggers a SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> simulation and returns the score for the current state of the <a href="#network_class">Network class</a> instance.<br>
-                        <sub>Expected to be called by the self's step() method.</sub>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <b>Helpers</b>
-                  <ul>
-                     <li>
-                        <b>_build_observation_tensors</b>(nodes_dict: dict[str, Any]):<br>
-                        Given the normalised features of the Node class instances constructs several Numpy data structures, including
-                        <ul>
-                           <li>
-                              node_features: Space representing the normalised node coordinates
-                           </li>
-                           <li>
-                              node_types: Space representing the node types
-                           </li>
-                           <li>
-                              spatial_features: Space representing the realisation form of all the nodes
-                           </li>
-                           <li>
-                              node_mask: Space representing the nodes in the network, and padding slots completing the number of nodes to the maximum number of nodes
-                           </li>
-                           <li>
-                              slot_to_guid: Mapping the specific cells of the node_mask to the NodeGuid values
-                           </li>
-                           <li>
-                              guid_to_slot: Mapping the NodeGuid values to the specific cells of the node_mask
-                           </li>
-                        </ul>
                      </li>
                   </ul>
                </li>
@@ -887,22 +841,21 @@
             <p>
                Designed to accommodate the data traffic between SUMOFit and SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>
             </p>
-            <h4>bin_locator</h4>
+            <h4>bin locator</h4>
             <ul>
                <li>
-                  <b>find_netconverter</b>(allow_gui: bool):<br>
-                  Locates the directory for the netconverter. If one is not found and the allow_gui argument is True, it opens a dialogue window to let the user locate the executable.<br>
+                  <b>find netconverter:</b><br>
+                  Locates the directory for the netconverter. If one is not found it opens a dialogue window to let the user locate the executable.<br>
                   <sub>Expected to be triggered while initiating the SUMOScenarioBuilder Class instances.</sub>
                </li>
                <li>
-                  <b>find_sumo</b>(prefer_gui: bool, allow_gui: bool):<br>
-                  Locates the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> executable without a graphical user interface if the prefer_gui argument is False; otherwise, locates sumo_gui. If one is not found and the allow_gui argument is True, it opens a dialogue window to let the user locate the executable.<br>
+                  <b>find sumo:</b><br>
+                  Locates the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> executable.<br>
                   <sub>Expected to be triggered by the _find_sumo_binary method of the TraCIRunner class</sub>
                </li>
                <li>
-                  <b>validate_executable</b>(p: Path, firendly_name: str):<br>
+                  <b>validate executable:</b><br>
                   Validates the executable for the operating system.<br>
-                  <sub>Expected to be triggered by the find_netconverter() and find_sumo() functions under the module.
                </li>
             </ul>
             <h4>SSMParser Class</h4>
@@ -911,24 +864,16 @@
                   <b>Properties</b>
                   <ul>
                      <li>
-                        <b>_id_registry:</b><br>
-                        An instance of the <a href="#id_registry_class">IdRegistry class</a>, assigned to the SSMParser.
-                     </li>
-                     <li>
-                        <b>ssm_file:</b><br>
+                        <b>ssm file:</b><br>
                         Directory that the simulation saved the SSM results.
                      </li>
                      <li>
                         <b>collisions:</b><br>
-                        Returns a dictionary of collisions found in SSM results, indexed by the conflict id. A conflict id is assigned by the <a href="#id_registry_class">IdRegistry class</a> instance.
+                        Returns a dictionary of collisions found in SSM results.
                      </li>
                      <li>
-                        <b>near_misses:</b><br>
-                        Returns a dictionary of near misses found in SSM results, indexed by the conflict id assigned by the <a href="#id_registry_class">IdRegistry class</a> instance.
-                     </li>
-                     <li>
-                        <b>events:</b><br>
-                        Returns a dictionary of near misses found in SSM results, indexed by the conflict id assigned by the <a href="#id_registry_class">IdRegistry class</a> instance.
+                        <b>near misses:</b><br>
+                        Returns a dictionary of near misses found in SSM results.
                      </li>
                   </ul>
                </li>
@@ -936,19 +881,16 @@
                   <b>Methods</b>
                   <ul>
                      <li>
-                        <b>pars</b>():<br>
+                        <b>pars:</b><br>
                         Parses the SSM results of the simulation from the SSM.xml file.<br>
-                        <sub>Expected to be triggered by the calculate_network_score() method of the SUMOFitEnv class.</sub>
                      </li>
                      <li>
-                        <b>_pair_key</b>(begin: str, ego: str, foe: str):<br>
+                        <b> pair key:</b><br>
                         Gives the conflict a unique name to match the conflict entries from the perspective of the multiple road users. Returns the identical name for the conflict.<br>
-                        <sub>Expected to be triggered by the self's _parse_conflicts() method.</sub>
                      </li>
                      <li>
-                        <b>_parse_conflicts</b>(conflict: Dict[str, Any]):<br>
+                        <b>parse conflicts:</b><br>
                         Parses information from unique conflict elements across multiple road users' perspectives, ensuring the conflict is registered only once and reflected in the results.<br>
-                        <sub>Expected to be triggered by the self's parse() method.</sub>
                      </li>
                   </ul>
                </li>
@@ -959,11 +901,11 @@
                   <b>Properties</b>
                   <ul>
                      <li>
-                        <b>net_file:</b><br>
+                        <b>net file:</b><br>
                         Stores the directory of the ".net.xml" file.
                      </li>
                      <li>
-                        <b>route_file:</b><br>
+                        <b>route file:</b><br>
                         Stores the directory of the ".rou.xml" file.
                      </li>
                      <li>
@@ -971,7 +913,7 @@
                         Stores the directory of the ".sumocfg" file.
                      </li>
                      <li>
-                        <b>netconvert_path:</b><br>
+                        <b>netconvert path:</b><br>
                         Stores the directory of the ".sumocfg" file.
                      </li>
                      <li>
@@ -984,120 +926,24 @@
                   <b>Methods</b>
                   <ul>
                      <li>
-                        <b>build_for_episode_step</b>(network: <a href="#network_class">Network</a>, flow_set: <a href="#flowset_class">FlowSet</a>, target_dir: Path, common_file_name: str):<br>
+                        <b>build for episode step:</b><br>
                         Creates the simulation files at the specified path, using the episode and step IDs. Returns the directories for ".net.xml", ".rou.xml" and ".sumocfg" files.<br>
-                        <sub>Expected to be triggered by the create_sumo_scenario() method of the SUMOFitEnv class.</sub>
                      </li>
                      <li>
-                        <b>_build_with_netconvert</b>(network: <a href="#network_class">Network</a>, target_dir: Path, common_file_name: str):<br>
-                        Creates a ".net.xml" file and returns the directory where it is saved.<br>
-                        <sub>Expected to be triggered by the self's build_for_episode_step() method.</sub>
-                     </li>
-                     <li>
-                        <b>_build_routes</b>(flow_set: <a href="#flowset_class">FlowSet</a>, target_dir: Path, common_file_name: str):<br>
-                        Creates a ".rou.xml" file and returns the directory where it is saved.<br>
-                        <sub>Expected to be triggered by the self's build_for_episode_step() method.</sub>
-                     </li>
-                     <li>
-                        <b>_build_cfg</b>(target_dir: Path, common_file_name: str):<br>
-                        Creates a ".rou.xml" file and returns the directory where it is saved.<br>
-                        <sub>Expected to be triggered by the self's build_for_episode_step() method.</sub>
-                     </li>
-                     <li>
-                        <b>resolve_sumo_paths</b>(test_name: str, hotmap_code: str, episode_id: int, step_id: int):<br>
-                        Constructs the directory names for all the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files, returns the target directory and the common file name that all the files share under the target directory.<br>
-                        <sub>Expected to be triggered by the create_sumo_scenario() method of the SUMOFitEnv class.</sub>
-                     </li>
-                     <li>
-                        <b>_write_nodes_xml</b>(network: <a href="#network_class">Network</a>, out_path: Path):<br>
+                        <b> write nodes xml:</b><br>
                         Writes ".nod.xml" file to the given directory.<br>
-                        <sub>Expected to be triggered by the self's _build_with_netconvert() method.</sub>
                      </li>
                      <li>
-                        <b>_write_edges_xml</b>(network: <a href="#network_class">Network</a>, out_path: Path):<br>
+                        <b> write edges xml:</b><br>
                         Writes ".edg.xml" file to the given directory.<br>
-                        <sub>Expected to be triggered by the self's _build_with_netconvert() method.</sub>
                      </li>
                   </ul>
                </li>
             </ul>
-            <h4>TraCIRunner Class</h4>
-            <ul>
-            <ul>
-               <li>
-                  <b>Properties</b>
-                  <ul>
-                     <li>
-                        <b>sumo_binary:</b><br>
-                     </li>
-                     <li>
-                        <b>connection:</b><br>
-                     </li>
-                     <li>
-                        <b>seed:</b><br>
-                     </li>
-                     <li>
-                        <b>config_path:</b><br>
-                     </li>
-                     <li>
-                        <b>vehicle_subscription:</b><br>
-                     </li>
-                     <li>
-                        <b>ssm_device_enabled:</b><br>
-                     </li>
-                     <li>
-                        <b>result_dir:</b><br>
-                     </li>
-                     <li>
-                        <b>teleport_events:</b><br>
-                     </li>
-                     <li>
-                        <b>collision_events:</b><br>
-                     </li>
-                     <li>
-                        <b>seen_vehicle:</b><br>
-                     </li>
-                     <li>
-                        <b>running:</b><br>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <b>Methods</b>
-                  <ul>
-                     <li>
-                        <b>start</b>():<br>
-                     </li>
-                     <li>
-                        <b>step</b>():<br>
-                     </li>
-                     <li>
-                        <b>run_until</b>(stop_condition: Callable[[], bool], max_steps: int):<br>
-                     </li>
-                     <li>
-                        <b>summary</b>():<br>
-                     </li>
-                     <li>
-                        <b>close</b>():<br>
-                     </li>
-                     <li>
-                        <b>_cleanup_arrived</b>():<br>
-                     </li>
-                     <li>
-                        <b>_subscribe_departed</b>():<br>
-                     </li>
-                     <li>
-                        <b>_compute_ttc</b>():<br>
-                     </li>
-                     <li>
-                        <b>_find_sumo_binary</b>():<br>
-                     </li>
-                     <li>
-                        <b>_build_cmd</b>():<br>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
+            <h4>TraCI Runner Class</h4>
+            <p>
+               Designed to replace the costly SMM.xml writing and parsing process with direct communication with the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> using TraCI. Currently under development.
+            </p>
          </details>
          <details>
             <summary>
@@ -1105,40 +951,12 @@
                <sub>Sub-module that contains functions that parse the JSON data extracted from the Civil3D model</sub>
             </summary>
             <p>
-               Reads the JSON data extracted by "NetExport", a complementary project and constructs the class instances under the data_structures module.
+               Reads the JSON data extracted by "NetExport", a complementary project and constructs the class instances under the <a href="#data_structures_module">Data Structures module</a>.
             </p>
             <ul>
                <li>
-                  <b>network_from_c3d_json_file</b>(filepath: str)<br>
-                  Returns a <a href="#network_class">Network class</a> instance from the given JSON file by calling the from_dict() method of the <a href="#network_class">Network class</a> with the "civil3d" source argument.
-               </li>
-               <li>
-                  The following functions are designed to handle the node creation logic of several Node types
-                  <ul>
-                     <li>
-                        <b>primary_node_from_c3d_dict</b>(d: Dict[str, Any])
-                     </li>
-                     <li>
-                        <b>auxiliary_node_from_c3d_dict</b>(d: Dict[str, Any])
-                     </li>
-                     <li>
-                        <b>pole_node_from_c3d_dict</b>(d: Dict[str, Any])
-                     </li>
-                     <li>
-                        <b>transition_node_from_c3d_dict</b>(d: Dict[str, Any])
-                     </li>
-                  </ul>
-                  <sub>All the functions above are expected to be triggered by the from_json_data() method of the <a href="#node_manager_class">NodeManager class</a>, where the source argument is "civil3d".</sub>
-               </li>
-               <li>
-                  <b>edge_from_c3d_dict</b>(filepath: str)<br>
-                  Returns an Edge class instance.<br>
-                  <sub>Expected to be triggered by the from_json_data() method of the <a href="#edge_manager_class">EdgeManager class</a>, where the source argument is "civil3d".</sub>
-               </li>
-               <li>
-                  <b>build_chain_by_managers</b>(edge_manager: EdgeManager, region_id: str, edge_ids: List[str]):<br>
-                  Returns an EdgeChain class instance.<br>
-                  <sub>Expected to be triggered by the from_json_data() method of the <a href="#chain_manager_class">ChainManager class</a>, where the source argument is "civil3d".</sub>
+                  <b>network from c3d json file</b><br>
+                  Returns a <a href="#network_class">Network class</a> instance from the given JSON file.
                </li>
             </ul>
          </details>
@@ -1192,10 +1010,10 @@
 
       <ul>
          <li id="Alvarez Lopez et al., 2018">
-            Alvarez Lopez, P., Behrisch, M., Bieker-Walz, L., Erdmann, J., Flötteröd, Y.-P., Hilbrich, R., Lücken, L., Rummel, J., Wagner, P., & Wießner, E. (2018). Microscopic Traffic Simulation using SUMO. 2018 21st International Conference on Intelligent Transportation Systems (ITSC). https://doi.org/10.1109/ITSC.2018.8569938
+            Alvarez Lopez, P., Behrisch, M., Bieker-Walz, L., Erdmann, J., Flötteröd, Y.-P., Hilbrich, R., Lücken, L., Rummel, J., Wagner, P., & Wießner, E. (2018). Microscopic Traffic Simulation using SUMO. 2018 21st International Conference on Intelligent Transportation Systems (ITSC). <a href="https://doi.org/10.1109/ITSC.2018.8569938">https://doi.org/10.1109/ITSC.2018.8569938</a>
          </li>
          <li id="Towers et al., 2024">
-            Towers, M., Kwiatkowski, A., Terry, J., Balis, J. U., De Cola, G., Deleu, T., Goulão, M., Kallinteris, A., Krimmel, M., KG, A., Perez-Vicente, R., Pierré, A., Schulhoff, S., Tai, J. J., Tan, H., & Younis, O. G. (2024). Gymnasium: A standard interface for reinforcement learning environments. arXiv. https://doi.org/10.48550/arXiv.2407.17032
+            Towers, M., Kwiatkowski, A., Terry, J., Balis, J. U., De Cola, G., Deleu, T., Goulão, M., Kallinteris, A., Krimmel, M., KG, A., Perez-Vicente, R., Pierré, A., Schulhoff, S., Tai, J. J., Tan, H., & Younis, O. G. (2024). Gymnasium: A standard interface for reinforcement learning environments. arXiv. <a href="https://doi.org/10.48550/arXiv.2407.17032">https://doi.org/10.48550/arXiv.2407.17032</a>
          </li>
       </ul>
 
