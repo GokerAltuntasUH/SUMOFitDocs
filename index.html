@@ -147,7 +147,7 @@
                <sub>Designed to control Network-level entities involving both Nodes and Edges: <a href="#edgechain_class">EdgeChains</a> and <a href = "#loop_class">Loops</a></sub>
             </summary>
             <p>
-               ChainManager is designed to handle operations that require network-level knowledge. For example, a Loop class instance operates on both Edge and Node instances, and these operations are managed by the ChainManager.
+               ChainManager is designed to handle operations that require network-level knowledge. For example, a <a href = "#loop_class">Loop class</a> instance operates on both Edge and Node instances, and these operations are managed by the ChainManager.
             </p>
             <h4>Properties</h4>
             <ul>
@@ -189,104 +189,37 @@
          <details>
             <summary>
                <strong id="edge_manager_class">➖ Edge Manager Class</strong><br>
-               <sub>An Edge is the single segment between two nodes. See also: EdgeChain</sub>
+               <sub>An <a href="#edge_class">Edge</a> is the single segment between two nodes. See also: <a href="#edgechain_class">EdgeChain</a></sub>
             </summary>
             <p>
-               Manages Edge-level operations regarding edges and lanes
+               Manages <a href="#edge_class">Edge</a>-level operations regarding edges and lanes
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
                   <b>edges</b><br>
-                  Returns a dictionary of all the Edge class instances in the network indexed by the EdgeGUID.
+                  Returns a dictionary of all the <a href="#edge_class">Edge class</a> instances in the network indexed by the EdgeGUID.
                </li>
                <li>
-                  <b>_edges_by_node</b><br>
-                  Returns a dictionary in which the NodeGUID of the Node class instance is the key, and a list of all the Edge class instances that connect to the Node is the value.
-               </li>
-               <li>
-                  <b>_edges_by_region</b><br>
-                  Returns lists of Edge class instances indexed by the Civil3D RegionGUID
-               </li>
-               <li>
-                  <b>edges_by_assembly</b><br>
-                  Returns lists of Edge class instances indexed by the Ids of Civil3D assemblies
-               </li>
-               <li>
-                  <b>lane_configurations_by_assembly</b><br>
-                  Returns lists of LaneConfiguration class instances, indexed by the Ids of Civil3D assemblies
-               </li>
-               <li>
-                  <b>edge_count</b><br>
-                  Returns the integer value of the total number of edges in the network
+                  <b>edges by node</b><br>
+                  Returns a dictionary in which the NodeGUID of the <a href="#node_class">Node class</a> instance is the key, and a list of all the <a href="#edge_class">Edge class</a> instances that connect to the Node is the value.
                </li>
             </ul>
             <h4>Methods</h4>
             <ul>
-               <li>
-                  <b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_dict</b>():<br>
-                        Returns a dictionary representation of the EdgeManager class instance, allowing archiving and restoring.<br>
-                        <sub>Expected to be triggered by the to_dict() method of the <a href="#network_class">Network class</a>.</sub>
-                     </li>
-                     <li>
-                        <b>from_json_data</b>(json_data: Dict[str, Any], source: str)<br>
-                        Constructs the EdgeManager class instance from the given data source. The source argument should be either "civil3d" or "archive"; default to "archive".<br>
-                        <sub>Expected to be triggered by the from_dict() method of the <a href="#network_class">Network class</a>.</sub>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
                <li><b>Access Methods</b>
                   <ul>
                      <li>
-                        <b>get_edge</b>(edge_guid: str):<br>
-                        Returns the Edge class instance by the EdgeGUID.<br>
-                        <sub>Expected to be triggered by the get_edge() method of the <a href="#network_class">Network class</a>.</sub>
+                        <b>get edge:</b><br>
+                        Returns the <a href="#edge_class">Edge class</a> instance by the EdgeGUID.<br>
                      </li>
                      <li>
-                        <b>get_edges_by_node</b>(NodeGuid: str):<br>
-                        Returns a list of edges connecting to the same Node class instance, given the NodeGUID.<br>
-                        <sub>Expected to be triggered by the get_edges_by_node() function in the <a href="#domain_queries">queries</a> sub-module of the <a href="#domain_module">domain module</a>.</sub>
+                        <b>get edges by node:</b><br>
+                        Returns a list of edges connecting to the same <a href="#node_class">Node class</a> instance, given the NodeGUID.<br>
                      </li>
                      <li>
-                        <b>get_edges_from_node</b>(NodeGuid: str):<br>
-                        Returns a list of edges that origins to the Node class instance, with the given NodeGUID.<br>
-                        <sub>Expected to be triggered by the get_edges_from_node() function in the <a href="#domain_queries">queries</a> sub-module of the <a href="#domain_module">domain module</a>.</sub>
-                     </li>
-                     <li>
-                        <b>get_edges_to_node</b>(NodeGuid: str):<br>
-                        Returns a list of edges that target the Node class instance, with the given NodeGUID.<br>
-                        <sub>Expected to be triggered by the get_edges_to_node() function in the <a href="#domain_queries">queries</a> sub-module of the <a href="#domain_module">domain module</a>.</sub>
-                     </li>
-                     <li>
-                        <b>get_all_edges_in_radial_order</b>(NodeGuid: str):<br>
-                        Returns a list of edges that connect to the Node class instance, ordered by their rotation. Direction is ignored.<br>
-                        <sub>Expected to be triggered by the _calculate_loop_shape() method of the <a href="#chain_manager_class">ChainManager class</a>.</sub>
-                     </li>
-                     <li>
-                        <b>get_all_edges</b>():<br>
-                        Returns all the Edge class instances in the network<br>
-                        <sub>Expected to be triggered by the get_all_edges() function in the <a href="#domain_queries">queries</a> sub-module of the <a href="#domain_module">domain module</a></sub>.
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
-               <li><b>Registering and Indexing</b>
-                  <ul>
-                     <li>
-                        <b>add_edge</b>(edge: Edge):<br>
-                        Registers the given Edge class instance by updating all the relevant indexing.<br>
-                        <sub>Currently, only expected to be triggered by the self's from_json_data() method since the agent is not expected to add new edges. Access from the <a href="#domain_services">domain_services</a> sub-module should be granted in the future to preserve the "single access point" logic.</sub>
-                     </li>
-                     <li>
-                        <b>add_configuration</b>(lane_configuration: LaneConfiguration):<br>
-                        Registers a LaneConfiguration class instance by updating the "lane_configurations_by_assembly" property.<br>
-                        <sub>Currently, only expected to be triggered by the self's from_json_data() method since the agent is not expected to add new lane configurations. Access from the <a href="#domain_services">domain_services</a> sub-module should be granted in the future to preserve the "single access point" logic.</sub>
+                        <b>get all edges in radial order:</b><br>
+                        Returns a list of edges that connect to the <a href="#node_class">Node class</a> instance, ordered by their rotation. Direction is ignored.<br>
                      </li>
                   </ul>
                </li>
@@ -295,106 +228,53 @@
          <details>
             <summary>
                <strong id="node_manager_class">🔹 Node Manager Class</strong><br>
-               <sub>Controls all the types of nodes, except the SuperNode, a realisation of Loops.</sub>
+               <sub>Controls all the types of nodes, except the SuperNode, a realisation of <a href="#loop_class">Loops</a>. See: <a href="#realisation_form_enumeration">Realisation Form Enumeration</a></sub>
             </summary>
             <p>
-               Manages Node-level operations regarding edges and lanes
+               Manages <a href="#node_class">Node</a>-level operations regarding edges and lanes
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>primary_nodes</b><br>
-                  Returns a dictionary of all the PrimaryNode class instances in the network, indexed by the NodeGUID.
+                  <b>primary nodes</b><br>
+                  Returns a dictionary of all the PrimaryNode class instances in the network, indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
                </li>
                <li>
-                  <b>auxiliary_nodes</b><br>
-                  Returns a dictionary of all the AuxiliaryNode class instances in the network, indexed by the NodeGUID.
+                  <b>auxiliary nodes</b><br>
+                  Returns a dictionary of all the AuxiliaryNode class instances in the network, indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
                </li>
                <li>
-                  <b>auxiliary_nodes_by_region</b><br>
-                  Returns a dictionary of all the AuxiliaryNode class instances in the network, indexed by the Civil3D RegionGUID.
+                  <b>transition nodes</b><br>
+                  Returns a dictionary of all the TransitionNode class instances in the network, indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
                </li>
                <li>
-                  <b>transition_nodes</b><br>
-                  Returns a dictionary of all the TransitionNode class instances in the network, indexed by the NodeGUID.
-               </li>
-               <li>
-                  <b>pole_nodes</b><br>
-                  Returns a dictionary of all the PoleNode class instances in the network, indexed by the Civil3D RegionGUID.
-               </li>
-               <li>
-                  <b>pole_nodes_by_region</b><br>
-                  Returns a dictionary of all the PrimaryNode class instances in the network indexed by the NodeGUID.
-               </li>
-               <li>
-                  <b>node_count</b><br>
-                  Returns the integer value of the total number of NodeClass instances in the network.
-               </li>
-               <li>
-                  <b>meta</b><br>
-                  Returns the NodeManagerMetaData class instance associated with the NodeManager class instance.
+                  <b>pole nodes</b><br>
+                  Returns a dictionary of all the PoleNode class instances in the network indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
                </li>
             </ul>
             <h4>Methods</h4>
             <ul>
-               <li>
-                  <b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_dict</b>():<br>
-                        Returns a dictionary representation of the NodeManager class instance, allowing archiving and restoring.<br>
-                        <sub>Expected to be triggered by the from_dict() method of the <a href="#network_class">Network class</a>.</sub>
-                     </li>
-                     <li>
-                        <b>from_json_data</b>(json_data: Dict[str, Any], source: str)<br>
-                        Constructs the NodeManager class instance from the given data source. The source argument should be either "civil3d" or "archive".<br>
-                        <sub>Expected to be triggered by the to_dict() method of the <a href="#network_class">Network class</a>.</sub>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
                <li><b>Access Methods</b>
                   <ul>
                      <li>
-                        <b>get_node</b>(NodeGuid: str):<br>
-                        Returns the Node class instance by the EdgeGUID.<br>
-                        <sub>Expected to be triggered by the get_node() method of the <a href="#network_class">Network class</a>.</sub>
+                        <b>get node:</b><br>
+                        Returns the Node class instance by the NodeGUID.<br>
                      </li>
                      <li>
-                        <b>get_primary_nodes</b>():<br>
-                        Returns a list of all the PrimaryNode instances in the network.<br>
-                        <sub>Expected to be triggered by the get_primary_nodes() function in the <a href="#domain_queries">queries</a> sub-module in the <a href="#domain_module">domain module</a>.</sub>
+                        <b>get primary nodes:</b><br>
+                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
                      </li>
                      <li>
-                        <b>get_auxiliary_nodes</b>():<br>
-                        Returns a list of all the PrimaryNode instances in the network.<br>
-                        <sub>Expected to be triggered by the get_auxiliary_nodes() function in the <a href="#domain_queries">queries</a> sub-module in the <a href="#domain_module">domain module</a>.</sub>
+                        <b>get auxiliary nodes:</b><br>
+                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
                      </li>
                      <li>
-                        <b>get_auxiliary_region_groups</b>():<br>
-                        Returns a dictionary of AuxiliaryNode instance lists, indexed by the Civil3D RegionGUID.<br>
-                        <sub>Expected to be triggered by the get_auxiliary_region_groups() function in the <a href="#domain_queries">queries</a> sub-module in the <a href="#domain_module">domain module</a>.</sub>
+                        <b>get pole nodes:</b><br>
+                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
                      </li>
                      <li>
-                        <b>get_pole_nodes</b>():<br>
-                        Returns a list of all the PrimaryNode instances in the network.<br>
-                        <sub>Expected to be triggered by the get_pole_nodes() function in the <a href="#domain_queries">queries</a> sub-module in the <a href="#domain_module">domain module</a>.</sub>
-                     </li>
-                     <li>
-                        <b>get_pole_region_groups</b>():<br>
-                        Returns a dictionary of PoleNode instance lists, indexed by the Civil3D RegionGUID.<br>
-                        <sub>Expected to be triggered by the get_pole_region_groups() function in the <a href="#domain_queries">queries</a> sub-module in the <a href="#domain_module">domain module</a>.</sub>
-                     </li>
-                     <li>
-                        <b>get_transition_nodes</b>():<br>
-                        Returns a list of all the PrimaryNode instances in the network.<br>
-                        <sub>Expected to be triggered by the get_transition_nodes() function in the <a href="#domain_queries">queries</a> sub-module in the <a href="#domain_module">domain module</a>.</sub>
-                     </li>
-                     <li>
-                        <b>get_all_nodes</b>():<br>
-                        Returns a list of all the Node class instances in the network, listed as instances of their own class.<br>
-                        <sub>Expected to be triggered by the get_all_nodes() function in the <a href="#domain_queries">queries</a> sub-module in the <a href="#domain_module">domain module</a>.</sub>
+                        <b>get transition nodes:</b><br>
+                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
                      </li>
                   </ul>
                </li>
@@ -403,45 +283,12 @@
                <li><b>Processors</b>
                   <ul>
                      <li>
-                        <b>calculate_network_bounds</b>():<br>
-                        Calculates the minimum and maximum coordinates of the Node class instances across the entire network.<br>
-                        <sub>
-                           Expected to be triggered by the self's from_json_data() method.
-                           Network bounds are calculated only once, since SUMOFitEnv limits are determined by the given range from the network's geometric centre.
-                        </sub>
+                        <b>calculate network bounds:</b><br>
+                        Calculates the minimum and maximum coordinates of the Node class instances across the entire <a href="network_class">network</a>.<br>
                      </li>
                      <li>
-                        <b>calculate_construction_base_point</b>():<br>
-                        Calculates the geometric centre of the entire network, and registers the result as a property of the NodeManagerMeta class instance.<br>
-                        <sub>Expected to be triggered by the self's normalise_node_values() and validate_model_limits() methods, and from_json_data() method where the souce code is "civil3d".</sub>
-                     </li>
-                     <li>
-                        <b>normalise_node_values</b>(x: float, y: float, type: int, spatial: int):<br>
-                        Returns a tuple of ML-compatible Node features; continuous values are normalised, and Enumerations are converted to integers.
-                        This function will be moved into ML-related modules in the future.<br>
-                        <sub>Expected to be triggered by the self's get_normalised_nodes() method.</sub>
-                     </li>
-                     <li>
-                        <b>get_normalised_nodes</b>():<br>
-                        Returns a dictionary of ML-compatible Node feature tuples, indexed by the NodeGUID.
-                        This function will be moved into ML-related modules in the future.<br>
-                        <sub>Expected to be triggered by the calculate_normalised_nodes_dict() method of the <a href="#network_class">Network class</a>.</sub>
-                     </li>
-                     <li>
-                        <b>validate_model_limits</b>():<br>
-                        Returns a boolean validating whether the Node class instances are within the "normalisation_range" property of the NodeManagerMeta class instance.<br>
-                        <sub>Expected to be called by the validate_network() method of the <a href="#network_class">Network class</a>.</sub>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
-               <li><b>Registering and Indexing</b>
-                  <ul>
-                     <li>
-                        <b>add_node</b>(NodeGuid:str):<br>
-                        Registers the Node class instance with the correct indexing.<br>
-                        <sub>Currently, only expected to be triggered by the self's from_json_data() method since the agent is not expected to add new nodes. Access to the <a href="#domain_services">domain_services</a> sub-module should be granted in the future to preserve the "single access point" logic.</sub>
+                        <b>normalise node values:</b><br>
+                        Returns a tuple of ML-compatible Node features; continuous values are normalised, and Enumerations are converted to integers.<br>
                      </li>
                   </ul>
                </li>
@@ -453,7 +300,7 @@
                <sub>Helps assign a unique id for elements of the <a href="#network_class">Network class</a></sub>
             </summary>
             <p>
-               Currently applied to Loops and SSMParsers, and is under development.
+               It's currently applied to certain elements, and under development.
             </p>
          </details>
       </div>
@@ -470,12 +317,12 @@
       <div>
          <details>
             <summary>
-               <strong>➖ Edge Class:</strong><br>
-               <sub>A single segment between two nodes, see also EdgeChain</sub>
+               <strong id = "edge_class">➖ Edge Class:</strong><br>
+               <sub>A single segment between two <a href="#node_class">nodes</a>, see also <a href="#edgechain_class">EdgeChain</a></sub>
             </summary>
             <p>
-               An Edge object helps construct the EdgeChain. Practically, any characteristic change in the Civil3D alignment within the same region will trigger a new Edge class element.
-               Edge class elements cluster together to create EdgeChain class instances that correspond to the entire Civil3D region.
+               An Edge object helps construct the <a href="#edgechain_class">EdgeChain</a>. Practically, any characteristic change in the Civil3D alignment within the same region will trigger a new Edge class element.
+               Edge class elements cluster together to create <a href="#edgechain_class">EdgeChain class</a> instances that correspond to the entire Civil3D region.
             </p>
             <h4>Properties</h4>
             <ul>
@@ -492,40 +339,8 @@
                   String representation of the target Node class instance
                </li>
                <li>
-                  <b>EdgeType</b><br>
-                  Enumeration that represents the type of the Edge class instance
-               </li>
-               <li>
-                  <b>RegionAssemblyId</b><br>
-                  Civil3D assembly ID applied to the EdgeChain class instance that contains the instance of the Edge class.
-               </li>
-               <li>
                   <b>EdgePriority</b><br>
                   <a href="#Alvarez Lopez et al., 2018">SUMO</a> priority of the Edge class instance. When the instance is the first Edge in the EdgeChain, it determines the priority; otherwise, it is ignored. 
-               </li>
-               <li>
-                  <b>EdgeRealisationForm</b><br>
-                  Determined by the Loop's LoopRealisationForm property, if the Edge class instance is part of a Loop. Otherwise, always "NON_LOOP".
-               </li>
-               <li>
-                  <b>meta</b><br>
-                  Returns a dictionary of metadata that belongs to the Edge class instance.
-               </li>
-            </ul>
-            <h4>Methods</h4>
-            <ul>
-               <li>
-                  <b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_archive_dict</b>():<br>
-                        Returns a dictionary representation of the Edge class instance, allowing archiving and restoring.
-                     </li>
-                     <li>
-                        <b>from_archive_dict</b>(data: Dict[str, Any]):<br>
-                        Constructs the Edge class instance from the <a href="#network_class">Network class</a> instance's internal archive.
-                     </li>
-                  </ul>
                </li>
             </ul>
          </details>
@@ -546,16 +361,8 @@
                   Civil3D Region Id that the instance of the EdgeChain refers to.
                </li>
                <li>
-                  <b>RegionAssemblyId</b><br>
-                  Civil3D Assembly Id applied to the Civil3D region.
-               </li>
-               <li>
                   <b>Edges</b><br>
-                  A list of Edge class elements, always ordered by the Civil3D alignment station value that the Edge class element overlaps.
-               </li>
-               <li>
-                  <b>_start_stations</b><br>
-                  Civil3D alignment station that the Civil3D region corresponding to the EdgeChain element starts.
+                  A list of <a href="#edge_class">Edge class</a> elements, always ordered by the Civil3D alignment station value that the <a href="#edge_class">Edge class</a> element overlaps.
                </li>
                <li>
                   <b>LocationOffset</b><br>
@@ -564,25 +371,6 @@
                <li>
                   <b>shape</b><br>
                   Calculated by <a href="#chain_manager_class">ChainManager class</a> using the LocationOffset property of the EdgeChain class instance. The value is directly projected onto <a href="#Alvarez Lopez et al., 2018">SUMO</a> to ensure the physical centre of the road aligns with the <a href="#Alvarez Lopez et al., 2018">SUMO</a> Edge's insertion reference.
-               </li>
-            </ul>
-            <h4>Methods</h4>
-            <ul>
-               <li><b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_archive_dict</b>():<br>
-                        Returns a dictionary representation of the EdgeChain class instance, allowing archiving and restoring.
-                     </li>
-                     <li>
-                        <b>from_archive_dict</b>(data: Dict[str, Any]):<br>
-                        Constructs the EdgeChain class instance from the <a href="#network_class">Network class</a> instance's internal archive.
-                     </li>
-                     <li>
-                        <b>add_edge</b>(edge: Edge):<br>
-                        Inserts a new edge into the EdgeChain, conserving the order by the Civil3D alignment station.
-                     </li>
-                  </ul>
                </li>
             </ul>
          </details>
@@ -596,9 +384,9 @@
             </p>
             <h4>Elements:</h4>
             <ul>
-               <li>
+               <li id="realisation_form_enumeration">
                   <b>Realisation Form Enumeration</b><br>
-                  The state that defines the realisation form of the abstract elements
+                  The state that defines the realisation form of the abstract loop elements indentified in the road network topology.
                   <ul>
                      <li>
                         <b>Free Flow:</b><br>
@@ -610,12 +398,12 @@
                      </li>
                      <li>
                         <b>Super Node:</b><br>
-                        The entire loop geometry collapses into one super node
+                        The entire <a href="#loop_class">loop</a> geometry collapses into one super node
                      </li>
                   </ul>
                   <br>
                </li>
-               <li>
+               <li id="node_type_enumeration">
                   <b>Node Type Enumeration</b><br>
                   Helps categorise the Node elements
                   <ul>
@@ -630,20 +418,20 @@
                      <li>
                         <b>Auxiliary Node:</b><br>
                         Represents where the corridor properties are consistent, but the abstract line features change (i.e. the beginning of a curvature).
-                        Auxiliary nodes are not explicitly present in <a href="#Alvarez Lopez et al., 2018">SUMO</a>, but form the "SHAPE" property of a <a href="#Alvarez Lopez et al., 2018">SUMO</a> edge.
-                        In SUMOFit, two or more SUMOFit edges that bond with auxiliary nodes create an EdgeChain
-                        A SUMOFit EdgeChain renders as an Edge in <a href="#Alvarez Lopez et al., 2018">SUMO</a>
+                        Auxiliary nodes do not explicitly present in <a href="#Alvarez Lopez et al., 2018">SUMO</a>, but form the "SHAPE" property of a <a href="#Alvarez Lopez et al., 2018">SUMO</a> edge.
+                        In SUMOFit, two or more SUMOFit edges that bond with auxiliary nodes create an <a href="#edgechain_class">EdgeChain</a>.
+                        A SUMOFit EdgeChain renders as an <a href="#edge_class">Edge</a> in <a href="#Alvarez Lopez et al., 2018">SUMO</a>.
                      </li>
                      <li>
                         <b>Pole Node:</b><br>
                         Represents the endpoints of the network.
-                        Also represents the Origins and the Destinations of Flow Elements.
+                        Also represents the Origins and the Destinations of <a href="#flowelement_class">Flow Elements</a>.
                         The position of a Pole Node can not be modified
                      </li>
                   </ul>
                   <br>
                </li>
-               <li>
+               <li id="edge_type_enumeration">
                   <b>Edge Type Enumeration</b><br>
                   Helps categorise the Edge Elements. Edge types do not yet affect the simulation. In the future, we expect to include "spiral" type of edges in addition to "Arc"
                   <ul>
@@ -677,7 +465,7 @@
                <sub>A class that is to align with <a href="#Alvarez Lopez et al., 2018">SUMO</a>'s internal flow mechanism</sub>
             </summary>
             <p>
-               Represents a series of EdgeChains to pass through when travelling from specific origins to destinations.
+               Represents a series of <a href="#edgechain_class">EdgeChains</a> to pass through when travelling from specific origins to destinations.
             </p>
             <h4>Properties</h4>
             <ul>
@@ -686,12 +474,8 @@
                   Refers to the type of vehicle in the series that will follow the flow during the simulation.
                </li>
                <li>
-                  <b>FlowId</b><br>
-                  Civil3D Assembly Id applied to the Civil3D region.
-               </li>
-               <li>
                   <b>edges</b><br>
-                  An ordered series of Edge class instance guids that the vehicles in the flow will follow.
+                  An ordered series of <a href="#edge_class">Edge class</a> instance guids that the vehicles in the flow will follow.
                </li>
                <li>
                   <b>begin</b><br>
@@ -705,50 +489,6 @@
                   <b>vehsPerHour</b><br>
                   Total number of vehicles to be deployed into the simulation between the start and the end
                </li>
-               <li>
-                  <b>through_loops</b><br>
-                  Whether the flow goes through a loop definition. The property is set during creation to help avoid duplicating "Origin"-"Destination" pairs.
-                  Where two flow elements share the identical origin and destination keys, the one that goes through loops is eliminated.
-                  In doing so, the vehicles prefer diagonal connections to roundabouts and highway junctions.
-                  Currently, this operation uses a costly method explained in the <a href="#flowset_class">FlowSet class</a> class.
-               </li>
-               <li>
-                  <b>ommitted_edges</b><br>
-                  Edges that are part of a loop need to be omitted when writing the XML if the Realisation Form is a "SuperNode". Property keeps a list of omitted edges, enabling switching between the Roundabout and Freeflow states.
-               </li>
-            </ul>
-            <h4>Methods</h4>
-            <ul>
-               <li><b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_dict</b>():<br>
-                        Returns a dictionary representation of the FlowElement class instance, allowing archiving and restoring.
-                     </li>
-                     <li>
-                        <b>from_dict</b>(data: Dict[str, Any]):<br>
-                        Constructs the FlowElement class instance from the <a href="#flowset_class">FlowSet class</a> instance's internal archive.
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
-               <li><b>Helpers</b>
-                  <ul>
-                     <li>
-                        <b>get_number_of_edges</b>():<br>
-                        Returns an integer corresponding to the number of Edge class instances that the flow follows.
-                     </li>
-                     <li>
-                        <b>ommit_edge</b>(edge_guid: str):<br>
-                        Registers the given edge into the ommitted_edges property and returns None
-                     </li>
-                     <li>
-                        <b>unommit_edge</b>(edge_guid: str):<br>
-                        Deregisters the given edge from the ommitted_edges property and returns None
-                     </li>
-                  </ul>
-               </li>
             </ul>
          </details>
          <details>
@@ -757,13 +497,13 @@
                <sub>Corresponds representation of Civil3D assemblies in <a href="#Alvarez Lopez et al., 2018">SUMO</a> environment.</sub>
             </summary>
             <p>
-               A LaneConfiguration instance contains a list of Lane instances, each representing a sub-assembly in Civil3D. A LaneConfiguration element handles metadata, such as the total road width and the offset from the road centre to the OSM line position.
+               A LaneConfiguration instance contains a list of Lane definitions, each representing a sub-assembly in Civil3D. A LaneConfiguration element handles metadata, such as the total road width.
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
                   <b>Lanes</b><br>
-                  Returns a list of Lane elements, each of which corresponds to another Civil3D sub-assembly type.
+                  Returns a list of Lane definitions, each of which corresponds to another Civil3D sub-assembly type.
                </li>
                <li>
                   <b>AssemblyId</b><br>
@@ -773,43 +513,17 @@
                   <b>RoadWidth</b><br>
                   Total width of the road, considering all the Lane elements.
                </li>
-               <li>
-                  <b>LocationOffset</b><br>
-                  The distance from the OSM-line (overlaps with the Civil3D Assembly axis) to the centre of the road (overlaps with the <a href="#Alvarez Lopez et al., 2018">SUMO</a> road centerline)
-               </li>
-               <li>
-                  <b>meta</b><br>
-               </li>
-            </ul>
-            <h4>Methods</h4>
-            <ul>
-               <li><b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_archive_dict</b>():<br>
-                        Returns a dictionary representation of the LaneConfiguration class instance, allowing archiving and restoring.
-                     </li>
-                     <li>
-                        <b>from_archive_dict</b>(data: Dict[str, Any]):<br>
-                        Constructs the LaneConfiguration class instance from the <a href="#network_class">Network class</a> instance's internal archive.
-                     </li>
-                     <li>
-                        <b>default_configuration</b>(data: Dict[str, Any]):<br>
-                        Applied to the Connecting Edge instances, if no other LaneConfiguration was given.
-                     </li>
-                  </ul>
-               </li>
             </ul>
          </details>
          <details>
             <summary>
                <strong id="loop_class">♾️ Loop Class:</strong><br>
-               <sub>Internal loops identified in the <a href="#network_class">Network class</a> instance during the creation of the <a href="#flowset_class">FlowSet class</a> instances.</sub>
+               <sub>Internal loops identified in the <a href="#network_class">Network class</a> instance during the creation of the allocated <a href="#flowset_class">FlowSet class</a> instance.</sub>
             </summary>
             <p>
-               Topologically, identified loops imply a potential to become a Roundabout as the realisation form.
+               Topologically, identified loops imply a potential to become a Roundabout as the <a href="#realisation_form_enumeration"></a>realisation form</a>.
                While the same loop in the topology can have various realisation forms (FreeFlow, Ronundabout, SuperNode), the Agent can decide by changing a single parameter of any node in the Loop.
-               Corresponding elements (Edges, Nodes, FlowElements) respond automatically.
+               Corresponding elements (<a href="#edge_class">Edges</a>, <a href="#node_class">Nodes</a>, <a href="#flowelement_class">FlowElements</a>) respond automatically.
             </p>
             <h4>Properties</h4>
             <ul>
@@ -822,86 +536,33 @@
                   A list of unique string representations of the nodes in the Loop
                </li>
                <li>
-                  <b>node_set</b><br>
-               A set of unique string representations of the nodes in the Loop
-               </li>
-               <li>
-                  <b>edges</b><br>
-                  A list of unique string representations of the edges in the Loop
-               </li>
-               <li>
-                  <b>edge_set</b><br>
-                  A set of unique string representations of the edges in the Loop
-               </li>
-               <li>
                   <b>LoopRealisationForm</b><br>
                   The RealisationFormEnumeration reports whether the loop has a FreeFlow, SuperNode, or Roundabout state.
                </li>
                <li>
                   <b>LoopShape</b><br>
-                  The overall layout of the loop in the SuperNode form.
+                  The overall layout of the loop in the <a href="#realisation_form_enumeration"></a>SuperNode</a> form.
                </li>
             </ul>
             <h4>Methods</h4>
             <ul>
-               <li>
-                  <b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_dict</b>():<br>
-                        Returns a dictionary representation of the Loop class instance, allowing archiving and restoring.
-                     </li>
-                     <li>
-                        <b>from_json_data</b>(json_data: Dict[str, Any])<br>
-                        Constructs the Loop class instance from the <a href="#network_class">Network class</a> instance's internal archive.
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
                <li><b>Access Methods</b>
                   <ul>
                      <li>
-                        <b>get_next_edge</b>(edge_guid: str):
-                        Given an Edge's unique string representation, it returns the next Edge element in the loop according to traffic flow.
+                        <b>get next edge:</b>
+                        Given an <a href="#edge_class">Edge</a>'s unique string representation, it returns the next Edge element in the loop according to traffic flow.
                      </li>
                      <li>
-                        <b>get_previous_edge</b>(edge_guid: str):
-                        Given an Edge's unique string representation, it returns the previous Edge element in the loop according to the traffic flow.
+                        <b>get previous edge:</b>
+                        Given an <a href="#edge_class">Edge</a>'s unique string representation, it returns the previous Edge element in the loop according to the traffic flow.
                      </li>
                      <li>
-                        <b>get_next_node</b>(node_guid: str):
-                        Given a Node's unique string representation, it returns the next Node in the loop according to the traffic flow.
+                        <b>get next node:</b>
+                        Given a <a href="#node_class">Node</a>'s unique string representation, it returns the next Node in the loop according to the traffic flow.
                      </li>
                      <li>
-                        <b>get_previous_node</b>(node_guid: str):
-                        Given a Node's unique string representation, it returns the previous Node in the loop according to the traffic flow.
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
-               <li><b>Verification</b>
-                  <ul>
-                     <li>
-                        <b>contains_edge</b>(edge_guid: str):
-                        Returns a boolean indicating whether the given string representation of the Edge element was already included in the Loop.
-                     </li>
-                     <li>
-                        <b>contains_node</b>(node_guid: str):
-                        Returns a boolean indicating whether the given string representation of the Node element was already included in the Loop.
-                     </li>
-                     <li>
-                        <b>is_equal_by_edges</b>(edges: list[str]):
-                        Given a list of unordered edges, returns a boolean indicating whether they are equalavent of the Loop.
-                     </li>
-                     <li>
-                        <b>is_equal_by_nodes</b>(nodes: list[str]):
-                        Given a list of unordered nodes, returns a boolean indicating whether they are equalavent of the Loop.
-                     </li>
-                     <li>
-                        <b>is_equal</b>(other: Loop):
-                        Given another Loop definition, returns a boolean indicating whether they are equal.
+                        <b>get previous node:</b>
+                        Given a <a href="#node_class">Node</a>'s unique string representation, it returns the previous Node in the loop according to the traffic flow.
                      </li>
                   </ul>
                </li>
@@ -909,12 +570,12 @@
          </details>
          <details>
             <summary>
-               <strong>🔹Node Class:</strong><br>
+               <strong id="node_class">🔹Node Class:</strong><br>
                <sub>Represents points of characteristic changes in the road corridor's geometry</sub>
             </summary>
             <p>
                Node elements are not explicitly represented in Civil3D. Therefore, parsed during the data export phase using a complementary algorithm.
-               The Node class represents the parent definition for subclasses. The following subclasses are defined explicitly, but not mentioned in this documentation, as all the subtypes inherit from the base Node class explained in this section.
+               The Node class represents the parent definition for subclasses. The following subclasses are defined explicitly, but not mentioned in this documentation, as all the subtypes inherit from the base Node class.
                <ul>
                   <li>
                      <b>PrimaryNode:</b><br>
@@ -951,37 +612,6 @@
                <li>
                   <b>NodeY</b><br>
                   Projection of the Node's position over the Cardinal Y axis.
-               </li>
-               <li>
-                  <b>NodeRealistionFrom</b><br>
-                  Default to RealisationFormEnumeration.NONLOOP, and can be overridden by a Loop instance.
-               </li>
-               <li>
-                  <b>meta</b><br>
-               </li>
-               <li>
-                  <b>EdgeRealisationForm</b><br>
-                  Determined by the Loop's LoopRealisationForm property, if the Edge class instance is part of a Loop. Otherwise, always "NON_LOOP".
-               </li>
-               <li>
-                  <b>meta</b><br>
-                  Returns a dictionary of metadata that belongs to the Edge class instance.
-               </li>
-            </ul>
-            <h4>Methods</h4>
-            <ul>
-               <li>
-                  <b>Parsers, Constructors and Serialisers</b>
-                  <ul>
-                     <li>
-                        <b>to_archive_dict</b>():<br>
-                        Returns a dictionary representation of the subclass instance, allowing archiving and restoring.
-                     </li>
-                     <li>
-                        <b>from_archive_dict</b>(data: Dict[str, Any]):<br>
-                        Constructs the subclass instance from the <a href="#network_class">Network class</a> instance's internal archive.
-                     </li>
-                  </ul>
                </li>
             </ul>
          </details>
