@@ -13,6 +13,10 @@ body {
     padding: 2rem;
 }
 
+.HeaderInfo {
+    margin-bottom: 3rem;
+}
+
 /* Main titles */
 details {
     font-size: 1.4em;   /*compares to html*/
@@ -21,7 +25,8 @@ details {
     border: 1px solid #dddfe0;
     border-radius: 8px;
     padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 details summary {
@@ -45,7 +50,9 @@ details details {
     font-size: 1em; /* compares to details */
     background: #fff;
     border-color: #e6e6e6;
+    padding-bottom: 0.5rem;
     margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 
@@ -54,7 +61,7 @@ details details summary {
     font-size: 0.8em;       /*compares to details details*/
     font-weight: bold;
     cursor: pointer;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     padding-bottom: 0rem;   /* adds space between title sub and description */
 }
 
@@ -139,14 +146,55 @@ hr {
     margin: 1rem 0;
 }
 
+.Partners-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 4rem;
+}
+
+.Partners-row .UHasseltLogo img {
+    width: auto;
+    height: 60px;
+    max-width: 200px;
+}
+
+.Partners-row .Uhasselt-Info a {
+    font-size: 1em;
+    margin-bottom: 0rem;
+}
+
+.Partners-row .Uhasselt-Info p {
+    font-weight: normal;
+    font-size: 0.8em;
+    margin-top: 0rem;
+}
+
+.Partners-row .CegekaLogo img {
+    width: auto;
+    height: 50px;
+    max-width: 200px;
+}
+
+.Partners-row .Cegeka-Info a {
+    margin-bottom: 0rem;
+}
+
+.Partners-row .Cegeka-Info p {
+    font-weight: normal;
+    font-size: 0.8em;
+    margin-top: 0rem;
+}
+
 .EU-statement-row {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-top: 1rem;
 }
 
 .EU-statement-row img {
-    width: 7%;
+    width: 6%;
     height: auto;
     max-width: 300px;
 }
