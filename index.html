@@ -147,17 +147,15 @@
                <sub>Designed to control Network-level entities involving both Nodes and Edges: <a href="#edgechain_class">EdgeChains</a> and <a href = "#loop_class">Loops</a></sub>
             </summary>
             <p>
-               ChainManager is designed to handle operations that require network-level knowledge. For example, a <a href = "#loop_class">Loop class</a> instance operates on both Edge and Node instances, and these operations are managed by the ChainManager.
+               ChainManager is designed to handle operations that require network-level knowledge.
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>edge chains by region</b><br>
-                  Returns a dictionary in which each <a href="#edgechain_class">EdgeChain</a> is indexed by its Civil 3D Region<br>
+                  <b>A list of edge chains</b><br>
                </li>
                <li>
-                  <b>loops</b><br>
-                  Returns a dictionary where each Loop is indexed by the LoopId
+                  <b>A list of topological loops</b><br>
                </li>
             </ul>
             <h4>Methods</h4>
@@ -171,7 +169,7 @@
                      </li>
                      <li>
                         <b>calculate loop shape:</b><br>
-                        Calculates and registers the overall loop layout for "SuperNode" state. Returns None.<br>
+                        Calculates and registers the overall loop layout for "SuperNode" state.<br>
                      </li>
                   </ul>
                </li>
@@ -180,7 +178,7 @@
                   <ul>
                      <li>
                         <b>calculate chain shape:</b><br>
-                        Updates the shape of the EdgeChain instance and returns None. The EdgeChain shape is calculated by offsetting the OSM line representation to the road's actual centre.<br>
+                        Updates the shape of the EdgeChain instance to guarantee a cross-domain alignment<br>
                      </li>
                   </ul>
                </li>
@@ -191,18 +189,11 @@
                <strong id="edge_manager_class">➖ Edge Manager Class</strong><br>
                <sub>An <a href="#edge_class">Edge</a> is the single segment between two nodes. See also: <a href="#edgechain_class">EdgeChain</a></sub>
             </summary>
-            <p>
-               Manages <a href="#edge_class">Edge</a>-level operations regarding edges and lanes
-            </p>
             <h4>Properties</h4>
             <ul>
                <li>
                   <b>edges</b><br>
-                  Returns a dictionary of all the <a href="#edge_class">Edge class</a> instances in the network indexed by the EdgeGUID.
-               </li>
-               <li>
-                  <b>edges by node</b><br>
-                  Returns a dictionary in which the NodeGUID of the <a href="#node_class">Node class</a> instance is the key, and a list of all the <a href="#edge_class">Edge class</a> instances that connect to the Node is the value.
+                  A list of all the <a href="#edge_class">Edge class</a> instances in the network.
                </li>
             </ul>
             <h4>Methods</h4>
@@ -211,15 +202,15 @@
                   <ul>
                      <li>
                         <b>get edge:</b><br>
-                        Returns the <a href="#edge_class">Edge class</a> instance by the EdgeGUID.<br>
+                        Gives access to a specific edge instance.<br>
                      </li>
                      <li>
                         <b>get edges by node:</b><br>
-                        Returns a list of edges connecting to the same <a href="#node_class">Node class</a> instance, given the NodeGUID.<br>
+                        Returns a list of edges connecting to the same <a href="#node_class">Node class</a> instance.<br>
                      </li>
                      <li>
                         <b>get all edges in radial order:</b><br>
-                        Returns a list of edges that connect to the <a href="#node_class">Node class</a> instance, ordered by their rotation. Direction is ignored.<br>
+                        Returns a list of edges that connect to the <a href="#node_class">Node class</a> instance, ordered by their rotation.<br>
                      </li>
                   </ul>
                </li>
@@ -230,28 +221,24 @@
                <strong id="node_manager_class">🔹 Node Manager Class</strong><br>
                <sub>Controls all the types of nodes, except the SuperNode, a realisation of <a href="#loop_class">Loops</a>. See: <a href="#realisation_form_enumeration">Realisation Form Enumeration</a></sub>
             </summary>
-            <p>
-               Manages <a href="#node_class">Node</a>-level operations regarding edges and lanes
-            </p>
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>primary nodes</b><br>
-                  Returns a dictionary of all the PrimaryNode class instances in the network, indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
+                  Primary Nodes
                </li>
                <li>
-                  <b>auxiliary nodes</b><br>
-                  Returns a dictionary of all the AuxiliaryNode class instances in the network, indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
+                  Auxiliary Nodes
                </li>
                <li>
-                  <b>transition nodes</b><br>
-                  Returns a dictionary of all the TransitionNode class instances in the network, indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
+                  Transition Nodes
                </li>
                <li>
-                  <b>pole nodes</b><br>
-                  Returns a dictionary of all the PoleNode class instances in the network indexed by the NodeGUID. See: <a href="#node_type_enumeration">Node Type Enumeration</a>.
+                  Pole Nodes
                </li>
             </ul>
+            <p>
+               Fuctions of node types are explained in the <a href="#node_type_enumeration">Node Type Enumeration</a>.
+            </p>
             <h4>Methods</h4>
             <ul>
                <li><b>Access Methods</b>
@@ -288,7 +275,7 @@
                      </li>
                      <li>
                         <b>normalise node values:</b><br>
-                        Returns a tuple of ML-compatible Node features; continuous values are normalised, and Enumerations are converted to integers.<br>
+                        Returns a tuple of ML-compatible Node features.<br>
                      </li>
                   </ul>
                </li>
@@ -311,7 +298,7 @@
       <p>
          Designed to store and organise lunch-time memory data.
          The structures below are designed to serve as an interface between SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> and Civil3D elements.
-         Functions in the <a href="#domain_module">domain module</a>, described below, wrap the data structures and are used by AI modules to create the playground for AI agents and to run the simulation for reward calculation.
+         The <a href="#domain_module">domain module</a> elements, described above, wrap the data structures and are used by multiple execution environments.
       </p>
       
       <div>
@@ -322,7 +309,7 @@
             </summary>
             <p>
                An Edge object helps construct the <a href="#edgechain_class">EdgeChain</a>. Practically, any characteristic change in the Civil3D alignment within the same region will trigger a new Edge class element.
-               Edge class elements cluster together to create <a href="#edgechain_class">EdgeChain class</a> instances that correspond to the entire Civil3D region.
+               Edge class elements cluster together to create an <a href="#edgechain_class">EdgeChain class</a> instance.
             </p>
             <h4>Properties</h4>
             <ul>
@@ -340,7 +327,7 @@
                </li>
                <li>
                   <b>Edge Priority</b><br>
-                  SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> priority of the Edge class instance. When the instance is the first Edge in the EdgeChain, it determines the priority; otherwise, it is ignored. 
+                  SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> priority of the Edge class instance. 
                </li>
             </ul>
          </details>
@@ -351,15 +338,10 @@
             </summary>
             <p>
                In SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>, Edges may have a polyline geometry. An "Edge" in SUMOFit represents a single segment,
-               while an EdgeChain represents the entire Edge in SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>. When writing the "Edges.XML" (See Scenario Builder)
-               Edge elements of SUMOFit are ignored, and their collective forms, EdgeChain elements, are translated into SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> edges.
+               while an EdgeChain represents the entire Edge in SUMO.
             </p>
             <h4>Properties</h4>
             <ul>
-               <li>
-                  <b>Region Guid</b><br>
-                  Civil3D Region Id that the instance of the EdgeChain refers to.
-               </li>
                <li>
                   <b>Edges</b><br>
                   A list of <a href="#edge_class">Edge class</a> elements, always ordered by the Civil3D alignment station value that the <a href="#edge_class">Edge class</a> element overlaps.
@@ -370,7 +352,7 @@
                </li>
                <li>
                   <b>shape</b><br>
-                  Calculated by <a href="#chain_manager_class">ChainManager class</a> using the LocationOffset property of the EdgeChain class instance. The value is directly projected onto SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> to ensure the physical centre of the road aligns with the <a href="#Alvarez Lopez et al., 2018">SUMO</a> Edge's insertion reference.
+                  Calculated by <a href="#chain_manager_class">ChainManager class</a> using the LocationOffset property of the EdgeChain class instance. The value is directly projected onto SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> to ensure the physical centre of the road alignment.
                </li>
             </ul>
          </details>
@@ -418,15 +400,11 @@
                      <li>
                         <b>Auxiliary Node:</b><br>
                         Represents where the corridor properties are consistent, but the abstract line features change (i.e. the beginning of a curvature).
-                        Auxiliary nodes do not explicitly present in SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>, but form the "SHAPE" property of a SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> edge.
-                        In SUMOFit, two or more SUMOFit edges that bond with auxiliary nodes create an <a href="#edgechain_class">EdgeChain</a>.
-                        A SUMOFit EdgeChain renders as an <a href="#edge_class">Edge</a> in SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>.
                      </li>
                      <li>
                         <b>Pole Node:</b><br>
                         Represents the endpoints of the network.
                         Also represents the Origins and the Destinations of <a href="#flowelement_class">Flow Elements</a>.
-                        The position of a Pole Node can not be modified
                      </li>
                   </ul>
                   <br>
@@ -438,7 +416,6 @@
                      <li>
                         <b>Connecting:</b><br>
                         Restores the topographic structure in which two primary nodes are located adjacent to each other.
-                        They are not represented in Civil3D and are produced during data extraction, where a junction's geometry is flushed with another's. 
                      </li>
                      <li>
                         <b>Line:</b><br>
@@ -475,7 +452,7 @@
                </li>
                <li>
                   <b>edges</b><br>
-                  An ordered series of <a href="#edge_class">Edge class</a> instance guids that the vehicles in the flow will follow.
+                  An ordered series of <a href="#edge_class">Edge class</a> instances that the vehicles in the flow will follow.
                </li>
                <li>
                   <b>begin</b><br>
@@ -497,13 +474,13 @@
                <sub>Corresponds representation of Civil3D assemblies in SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> environment.</sub>
             </summary>
             <p>
-               A LaneConfiguration instance contains a list of Lane definitions, each representing a sub-assembly in Civil3D. A LaneConfiguration element handles metadata, such as the total road width.
+               A LaneConfiguration instance contains a list of Lane definitions, each representing a sub-assembly in Civil3D. A LaneConfiguration element also handles metadata, such as the total road width.
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
                   <b>Lanes</b><br>
-                  Returns a list of Lane definitions, each of which corresponds to another Civil3D sub-assembly type.
+                  A list of Lane definitions, each of which corresponds to another Civil3D sub-assembly type.
                </li>
                <li>
                   <b>Assembly Id</b><br>
@@ -522,18 +499,13 @@
             </summary>
             <p>
                Topologically, identified loops imply a potential to become a Roundabout as the <a href="#realisation_form_enumeration"></a>realisation form</a>.
-               While the same loop in the topology can have various realisation forms (FreeFlow, Ronundabout, SuperNode), the Agent can decide by changing a single parameter of any node in the Loop.
-               Corresponding elements (<a href="#edge_class">Edges</a>, <a href="#node_class">Nodes</a>, <a href="#flowelement_class">FlowElements</a>) respond automatically.
+               Elements related to the loop (<a href="#edge_class">Edges</a>, <a href="#node_class">Nodes</a>, <a href="#flowelement_class">FlowElements</a>) respond automatically.
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>loop Id</b><br>
-                  A unique string representation of the Loop class element
-               </li>
-               <li>
                   <b>nodes</b><br>
-                  A list of unique string representations of the nodes in the Loop
+                  A list the nodes in the Loop
                </li>
                <li>
                   <b>Loop Realisation Form</b><br>
@@ -550,19 +522,19 @@
                   <ul>
                      <li>
                         <b>get next edge:</b>
-                        Given an <a href="#edge_class">Edge</a>'s unique string representation, it returns the next Edge element in the loop according to traffic flow.
+                        Given an <a href="#edge_class">Edge</a>, it returns the next Edge element in the loop according to traffic flow.
                      </li>
                      <li>
                         <b>get previous edge:</b>
-                        Given an <a href="#edge_class">Edge</a>'s unique string representation, it returns the previous Edge element in the loop according to the traffic flow.
+                        Given an <a href="#edge_class">Edge</a>, it returns the previous Edge element in the loop according to the traffic flow.
                      </li>
                      <li>
                         <b>get next node:</b>
-                        Given a <a href="#node_class">Node</a>'s unique string representation, it returns the next Node in the loop according to the traffic flow.
+                        Given a <a href="#node_class">Node</a>, it returns the next Node in the loop according to the traffic flow.
                      </li>
                      <li>
                         <b>get previous node:</b>
-                        Given a <a href="#node_class">Node</a>'s unique string representation, it returns the previous Node in the loop according to the traffic flow.
+                        Given a <a href="#node_class">Node</a>, it returns the previous Node in the loop according to the traffic flow.
                      </li>
                   </ul>
                </li>
@@ -574,7 +546,6 @@
                <sub>Represents points of characteristic changes in the road corridor's geometry</sub>
             </summary>
             <p>
-               Node elements are not explicitly represented in Civil3D. Therefore, parsed during the data export phase using a complementary algorithm.
                The Node class represents the parent definition for subclasses. The following subclasses are defined explicitly, but not mentioned in this documentation, as all the subtypes inherit from the base Node class.
                <ul>
                   <li>
@@ -600,10 +571,6 @@
                <li>
                   <b>Node Type</b><br>
                   An enumeration reports the node type, matching the subclass.
-               </li>
-               <li>
-                  <b>Node Guid</b><br>
-                  String representation of the Node class instance.
                </li>
                <li>
                   <b>Node X</b><br>
@@ -679,108 +646,57 @@
                <sub>An application of the Gymnasium <a href="#Towers et al., 2024">(Towers et al., 2024)</a> environment over the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> network</sub>
             </summary>
             <p>
-               SUMOFitEnv class instances create Gymnasium environments <a href="#Towers et al., 2024">(Towers et al., 2024)</a> using the given <a href="#network_class">Network class</a> instance. The instance is responsible for modifying the network based on the agent's decisions and calculating rewards by running the simulation.
+               SUMOFitEnv class instances create Gymnasium environments <a href="#Towers et al., 2024">(Towers et al., 2024)</a> using the given <a href="#network_class">Network class</a> instance. The instance is responsible for modifying the network based on agentic decisions.
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>Environment-wide Properties:</b><br>
-                  The following properties are conserved between the episodes
-                  <ul>
-                     <li>
-                        <b>base network</b><br>
-                        The <a href="#network_class">Network class</a> instance to be modified and evaluated by the SUMOFitEnv element.
-                     </li>
-                     <li>
-                        <b>base flowset</b><br>
-                        The <a href="#flowset_class">FlowSet class</a> instance represents the auto-generated demand elements
-                     </li>
-                     <li>
-                        <b>test name</b><br>
-                        A string value is given at each run. Simulation files, results and ML weights are stored using the test_name property of the SUMOFitEnv. On a project-wide basis, a test name is automatically assigned using a timestamp.
-                     </li>
-                     <li>
-                        <b>scenario builder</b><br>
-                        A SUMOSCenarioBuilder class instance that creates SUMO-specific <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files at each step.
-                     </li>
-                     <li>
-                        <b>score dict</b><br>
-                        A dictionary maps the metrics to be collected from SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>, along with their weights used to calculate the environment score at each step.
-                     </li>
-                     <li>
-                        <b>N_MAX</b><br>
-                        The maximum number of nodes that can be present in the <a href="#network_class">Network class</a> instance, including additional nodes to be created by the agent.
-                     </li>
-                     <li>
-                        <b>E_MAX</b><br>
-                        The maximum number of edges that can be present in the <a href="#network_class">Network class</a> instance, including additional nodes to be created by the agent.
-                     </li>
-                     <li>
-                        <b>Fgeom</b><br>
-                        Number of geometric features of nodes, currently limited to X and Y coordinates.
-                     </li>
-                     <li>
-                        <b>max episode steps</b><br>
-                        Number of steps to terminate an episode, if any other threshold is not met.
-                     </li>
-                     <li>
-                        <b>max move</b><br>
-                        Maximum length of the move vector that can be applied to a node by the agent.
-                     </li>
-                     <li>
-                        <b>observation space</b><br>
-                        A dictionary element to store the agent's observation at each step.
-                     </li>
-                     <li>
-                        <b>action space</b><br>
-                        A dictionary element defines the scope of actions the agent can take.
-                     </li>
-                  </ul>
+                  <b>base network</b><br>
+                  The <a href="#network_class">Network class</a> instance to be modified and evaluated by the SUMOFitEnv element.
                </li>
                <li>
-                  <b>Construction Properties:</b><br>
-                  The following properties are calculated before reset() and retained during training, avoiding costly recomputation after each episode.
-                  The word "construction" refers to the values calculated during the initialisation of the SUMOFitEnv using the base <a href="#network_class">Network class</a> instance.
-                  <ul>
-                     <li>
-                        <b>construction node features</b><br>
-                        Refers to the normalised values of the node features.
-                     </li>
-                     <li>
-                        <b>construction node types</b><br>
-                        Refers to the integer values of the node types
-                     </li>
-                     <li>
-                        <b>construction realisation forms</b><br>
-                        Refers to the integer values of the RealisationFormEnumeration values
-                     </li>
-                     <li>
-                        <b>construction node mask</b><br>
-                        Refers to the padding that indicates slots reserved for future nodes created by the agent.
-                        Node creation logic is currently under development.
-                     </li>
-                     <li>
-                        <b>construction score</b><br>
-                        Keeps the score at the initial state of the <a href="#network_class">Network class</a> instance to avoid the simulation running after each reset.
-                     </li>
-                  </ul>
+                  <b>base flowset</b><br>
+                  The <a href="#flowset_class">FlowSet class</a> instance represents the auto-generated demand elements
                </li>
                <li>
-                  <b>Step-specific properties:</b><br>
-                  SUMOFitEnv logic updates the following properties after each step in an episode.
-                  <ul>
-                     <li>
-                        <b>last observations</b><br>
-                        A dictionary to track the latest state of the <a href="#network_class">Network class</a> instance, initialised by the:
-                        <ul>
-                           <li>construction node features</li>
-                           <li>construction node types</li>
-                           <li>construction spatial features</li>
-                           <li>construction node mask</li>
-                        </ul>
-                        properties of the network, and updated in each step without altering the original properties.
-                     </li>
-                  </ul>
+                  <b>test name</b><br>
+                  A string value is given at each run.
+               </li>
+               <li>
+                  <b>scenario builder</b><br>
+                  A SUMOSCenarioBuilder class instance that creates SUMO-specific <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files at each step.
+               </li>
+               <li>
+                  <b>N_MAX</b><br>
+                  The maximum number of nodes that can be present in the <a href="#network_class">Network class</a> instance, including additional nodes to be created by the agent.
+               </li>
+               <li>
+                  <b>E_MAX</b><br>
+                  The maximum number of edges that can be present in the <a href="#network_class">Network class</a> instance, including additional edges to be created by the agent.
+               </li>
+               <li>
+                  <b>Fgeom</b><br>
+                  Number of geometric features of nodes, currently limited to X and Y coordinates.
+               </li>
+               <li>
+                  <b>max episode steps</b><br>
+                  Number of steps to terminate an episode, if any other threshold is not met.
+               </li>
+               <li>
+                  <b>max move</b><br>
+                  Maximum length of the move vector that can be applied to a node by the agent.
+               </li>
+               <li>
+                  <b>observation space</b><br>
+                  A dictionary element to store the agent's observation at each step.
+               </li>
+               <li>
+                  <b>action space</b><br>
+                  A dictionary element defines the scope of actions the agent can take.
+               </li>
+               <li>
+                  <b>last observations</b><br>
+                  A dictionary to track the latest state of the <a href="#network_class">Network class</a> instance.
                </li>
             </ul>
             <h4>Methods</h4>
@@ -795,17 +711,14 @@
                      <li>
                         <b>step:</b><br>
                         Applies the action specified by the action argument, then calculates the score.
-                        The method returns the calculated reward, whether the step is terminated or truncated, and any additional information.
                      </li>
                      <li>
-                        <b>move_node:</b><br>
-                        Moves the node with the given node_ind by the given move vector in the action argument.
-                        The method returns a boolean indicating whether the action was successful, with a message.<br>
+                        <b>move node:</b><br>
+                        Moves the node with the given node_ind by the given move vector in the action argument.<br>
                      </li>
                      <li>
-                        <b>rform_change:</b><br>
-                        Triggers a change in the "RealisationForm" in a Loop class, if the node with the given node_id is involved in the Loop.
-                        The method returns a boolean indicating whether the action was successful, with a message.<br>
+                        <b>rform change:</b><br>
+                        Triggers a change in the "RealisationForm" in a Loop class, if the node with the given node_id is involved in the Loop.<br>
                      </li>
                   </ul>
                </li>
@@ -814,7 +727,7 @@
                   <ul>
                      <li>
                         <b>create sumo scenario:</b><br>
-                        Creates the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files for the given episode and given step, and returns the step-specific directory, a common file name shared between SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files, and the unique TraCI label to differentiate between simulations run in parallel.<br>
+                        Creates the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files for the given episode and given step, and returns the step-specific directory, a common file name shared between SUMO files, and the unique TraCI label to differentiate between simulations run in parallel.<br>
                      </li>
                      <li>
                         <b>calculate network score:</b><br>
@@ -927,7 +840,7 @@
                   <ul>
                      <li>
                         <b>build for episode step:</b><br>
-                        Creates the simulation files at the specified path, using the episode and step IDs. Returns the directories for ".net.xml", ".rou.xml" and ".sumocfg" files.<br>
+                        Creates the simulation files at the specified path, using the episode and step IDs.<br>
                      </li>
                      <li>
                         <b> write nodes xml:</b><br>
