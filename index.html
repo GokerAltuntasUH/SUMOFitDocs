@@ -14,7 +14,7 @@
       <p>
          This documentation describes the structural components and interfaces of the SUMOFit framework.<br>
          Algorithmic details, optimisation strategies, and learning mechanisms are intentionally abstracted.<br>
-         Detailed methodological and algorithmic components are reserved for forthcoming scientific publications
+         Detailed methodological and algorithmic components are reserved for forthcoming scientific publications.<br>
          Last updated: 2026-03-19
       </p>
    </div>
@@ -643,100 +643,13 @@
       <div>
          <details>
             <summary>
-               <strong>🎮 SUMOFitEnv Class:</strong><br>
+               <strong>🎮 Reinforcement Learning Environment (Overview):</strong><br>
                <sub>An application of the Gymnasium <a href="#Towers et al., 2024">(Towers et al., 2024)</a> environment over the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> network</sub>
             </summary>
             <p>
-               SUMOFitEnv class instances create Gymnasium environments <a href="#Towers et al., 2024">(Towers et al., 2024)</a> using the given <a href="#network_class">Network class</a> instance. The instance is responsible for modifying the network based on agentic decisions.
+               SUMOFitEnv class enables SUMOFit to support integration with Gymnasium framework <a href="#Towers et al., 2024">(Towers et al., 2024)</a>. This enables agent-based exploration and optimisation of road network configurations. <br>
+               The detailed design of the environment, including action definitions, observation structures, and evaluation mechanisms, is reserved for forthcoming publications.
             </p>
-            <h4>Properties</h4>
-            <ul>
-               <li>
-                  <b>base network</b><br>
-                  The <a href="#network_class">Network class</a> instance to be modified and evaluated by the SUMOFitEnv element.
-               </li>
-               <li>
-                  <b>base flowset</b><br>
-                  The <a href="#flowset_class">FlowSet class</a> instance represents the auto-generated demand elements
-               </li>
-               <li>
-                  <b>test name</b><br>
-                  A string value is given at each run.
-               </li>
-               <li>
-                  <b>scenario builder</b><br>
-                  A SUMOSCenarioBuilder class instance that creates SUMO-specific <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files at each step.
-               </li>
-               <li>
-                  <b>N_MAX</b><br>
-                  The maximum number of nodes that can be present in the <a href="#network_class">Network class</a> instance, including additional nodes to be created by the agent.
-               </li>
-               <li>
-                  <b>E_MAX</b><br>
-                  The maximum number of edges that can be present in the <a href="#network_class">Network class</a> instance, including additional edges to be created by the agent.
-               </li>
-               <li>
-                  <b>Fgeom</b><br>
-                  Number of geometric features of nodes, currently limited to X and Y coordinates.
-               </li>
-               <li>
-                  <b>max episode steps</b><br>
-                  Number of steps to terminate an episode, if any other threshold is not met.
-               </li>
-               <li>
-                  <b>max move</b><br>
-                  Maximum length of the move vector that can be applied to a node by the agent.
-               </li>
-               <li>
-                  <b>observation space</b><br>
-                  A dictionary element to store the agent's observation at each step.
-               </li>
-               <li>
-                  <b>action space</b><br>
-                  A dictionary element defines the scope of actions the agent can take.
-               </li>
-               <li>
-                  <b>last observations</b><br>
-                  A dictionary to track the latest state of the <a href="#network_class">Network class</a> instance.
-               </li>
-            </ul>
-            <h4>Methods</h4>
-            <ul>
-               <li>
-                  <b>Stepping Logic</b>
-                  <ul>
-                     <li>
-                        <b>reset:</b><br>
-                        Reconstructs the <a href="#network_class">Network</a> and the <a href="#flowset_class">FlowSet</a> before an episode starts.
-                     </li>
-                     <li>
-                        <b>step:</b><br>
-                        Applies the action specified by the action argument, then calculates the score.
-                     </li>
-                     <li>
-                        <b>move node:</b><br>
-                        Moves the node with the given node_ind by the given move vector in the action argument.<br>
-                     </li>
-                     <li>
-                        <b>rform change:</b><br>
-                        Triggers a change in the "RealisationForm" in a Loop class, if the node with the given node_id is involved in the Loop.<br>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <b>Simulation Logic</b>
-                  <ul>
-                     <li>
-                        <b>create sumo scenario:</b><br>
-                        Creates the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> files for the given episode and given step, and returns the step-specific directory, a common file name shared between SUMO files, and the unique TraCI label to differentiate between simulations run in parallel.<br>
-                     </li>
-                     <li>
-                        <b>calculate network score:</b><br>
-                        Given the directories, triggers a SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> simulation and returns the score for the current state of the <a href="#network_class">Network class</a> instance.<br>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
          </details>
       </div>
 
