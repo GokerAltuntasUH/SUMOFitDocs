@@ -27,7 +27,7 @@
       <div>
          <h3 id="domain_module">Domain</h3>
          <p>
-            The domain module contains of intermediate layers of the multi-domain framework, providing a structured approach to managing the core elements of the SUMOFit.
+            The domain module contains intermediate layers of the multi-domain framework, providing a structured approach to managing the core elements of the SUMOFit.
             The module is designed to be the single access point for the other execution environments to interact with the core elements of the SUMOFit,
             including the <a href="#network_class">Network class</a> and the <a href="#flowset_class">FlowSet class</a>.
          </p>
@@ -44,7 +44,7 @@
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>meta data</b><br>
+                  <b>metadata</b><br>
                   A metadata class instance associated with the Network.
                   Practically, it contains information about:
                   <ul>
@@ -103,7 +103,7 @@
          <details>
             <summary>
                <strong id="flowset_class">🔀 Flow Set Class:</strong><br>
-               <sub>Collection of the FlowElement class instances travels through the Network</sub>
+               <sub>Collection of the FlowElement class instances that travel through the Network</sub>
             </summary>
             <p>
                The FlowSet class can be taken as the demand equivalent of the <a href="#network_class">Network class</a>. A FlowSet class instance is generated from the network,
@@ -124,7 +124,7 @@
                   An integer corresponds to the number of <a href="#flowelement_class">FlowElement</a> instances in the FlowSet instance.
                </li>
             </ul>
-            <h4>Methods</h4>
+            <h4>Functionality</h4>
             <ul>
                <li>
                   <b>from network:</b><br>
@@ -145,142 +145,72 @@
          <details>
             <summary>
                <strong id="chain_manager_class">🔗 Chain Manager Class</strong><br>
-               <sub>Designed to control Network-level entities involving both Nodes and Edges: <a href="#edgechain_class">EdgeChains</a> and <a href = "#loop_class">Loops</a></sub>
+               <sub>Designed to control network-level entities involving both Nodes and Edges: <a href="#edgechain_class">EdgeChains</a> and <a href="#loop_class">Loops</a></sub>
             </summary>
             <p>
-               ChainManager is designed to handle operations that require network-level knowledge.
+               The ChainManager handles operations that require network-level awareness, particularly those involving relationships between nodes and edges.
             </p>
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>A list of edge chains</b><br>
+                  <b>Edge chains</b><br>
+                  Collection of edge chain structures within the network.
                </li>
                <li>
-                  <b>A list of topological loops</b><br>
+                  <b>Topological loops</b><br>
+                  Collection of detected loop structures within the network.
                </li>
             </ul>
-            <h4>Methods</h4>
+            <h4>Functionality</h4>
+            <p>
+               The ChainManager provides utilities for analysing and maintaining the structural consistency of edge chains and loops. These operations include:
+            </p>
             <ul>
                <li>
-                  <b>Loop Methods:</b>
-                  <ul>
-                     <li>
-                        <b>calculate loop center:</b><br>
-                        Calculates and registers the loop centre for "SuperNode" state.<br>
-                     </li>
-                     <li>
-                        <b>calculate loop shape:</b><br>
-                        Calculates and registers the overall loop layout for "SuperNode" state.<br>
-                     </li>
-                  </ul>
+                  Deriving geometric layouts to support accurate representation in <a href="#Alvarez Lopez et al., 2018">SUMO (Alvarez Lopez et al., 2018)</a>.
                </li>
                <li>
-                  <b>Edge Chain Methods:</b>
-                  <ul>
-                     <li>
-                        <b>calculate chain shape:</b><br>
-                        Updates the shape of the EdgeChain instance to guarantee a cross-domain alignment<br>
-                     </li>
-                  </ul>
+                  Ensuring geometric consistency and alignment across different execution environments.
                </li>
             </ul>
          </details>
          <details>
             <summary>
                <strong id="edge_manager_class">➖ Edge Manager Class</strong><br>
-               <sub>An <a href="#edge_class">Edge</a> is the single segment between two nodes. See also: <a href="#edgechain_class">EdgeChain</a></sub>
+               <sub>An <a href="#edge_class">Edge</a> represents a single segment between two nodes. See also: <a href="#edgechain_class">EdgeChain</a></sub>
             </summary>
             <h4>Properties</h4>
             <ul>
                <li>
-                  <b>edges</b><br>
-                  A list of all the <a href="#edge_class">Edge class</a> instances in the network.
+                  <b>Edges</b><br>
+                  A collection of all <a href="#edge_class">Edge</a> instances within the network.
                </li>
             </ul>
-            <h4>Methods</h4>
-            <ul>
-               <li><b>Access Methods</b>
-                  <ul>
-                     <li>
-                        <b>get edge:</b><br>
-                        Gives access to a specific edge instance.<br>
-                     </li>
-                     <li>
-                        <b>get edges by node:</b><br>
-                        Returns a list of edges connecting to the same <a href="#node_class">Node class</a> instance.<br>
-                     </li>
-                     <li>
-                        <b>get all edges in radial order:</b><br>
-                        Returns a list of edges that connect to the <a href="#node_class">Node class</a> instance, ordered by their rotation.<br>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
+            <h4>Functionality</h4>
+            <p>
+               The EdgeManager provides utilities for accessing and managing edge instances, supporting efficient retrieval and handling of relationships between connected elements within the network.
+            </p>
          </details>
          <details>
             <summary>
                <strong id="node_manager_class">🔹 Node Manager Class</strong><br>
-               <sub>Controls all the types of nodes, except the SuperNode, a realisation of <a href="#loop_class">Loops</a>. See: <a href="#realisation_form_enumeration">Realisation Form Enumeration</a></sub>
+               <sub>Controls all node types, except the SuperNode, a realisation of <a href="#loop_class">Loops</a>. See: <a href="#realisation_form_enumeration">Realisation Form Enumeration</a></sub>
             </summary>
             <h4>Properties</h4>
             <ul>
-               <li>
-                  Primary Nodes
-               </li>
-               <li>
-                  Auxiliary Nodes
-               </li>
-               <li>
-                  Transition Nodes
-               </li>
-               <li>
-                  Pole Nodes
-               </li>
+               <li><b>Primary Nodes</b></li>
+               <li><b>Auxiliary Nodes</b></li>
+               <li><b>Transition Nodes</b></li>
+               <li><b>Pole Nodes</b></li>
             </ul>
             <p>
-               Fuctions of node types are explained in the <a href="#node_type_enumeration">Node Type Enumeration</a>.
+               The functions of node types are explained in the <a href="#node_type_enumeration">Node Type Enumeration</a>.
             </p>
-            <h4>Methods</h4>
-            <ul>
-               <li><b>Access Methods</b>
-                  <ul>
-                     <li>
-                        <b>get node:</b><br>
-                        Returns the Node class instance by the NodeGUID.<br>
-                     </li>
-                     <li>
-                        <b>get primary nodes:</b><br>
-                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
-                     </li>
-                     <li>
-                        <b>get auxiliary nodes:</b><br>
-                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
-                     </li>
-                     <li>
-                        <b>get pole nodes:</b><br>
-                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
-                     </li>
-                     <li>
-                        <b>get transition nodes:</b><br>
-                        Returns a list of all the PrimaryNode instances in the <a href="network_class">network</a>.<br>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
-            <ul>
-               <li><b>Processors</b>
-                  <ul>
-                     <li>
-                        <b>calculate network bounds:</b><br>
-                        Calculates the minimum and maximum coordinates of the Node class instances across the entire <a href="network_class">network</a>.<br>
-                     </li>
-                     <li>
-                        <b>normalise node values:</b><br>
-                        Returns a tuple of ML-compatible Node features.<br>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
+            <h4>Functionality</h4>
+            <p>
+               The NodeManager operates on node-level data within the network, enabling efficient access and processing of node-related information. 
+               It also supports higher-level operations that rely on node awareness, such as deriving network bounds and preparing all the node features in the network for downstream processing.
+            </p>
          </details>
          <details>
             <summary>
@@ -297,7 +227,7 @@
       <h3 id="data_structures_module">Data Structures</h3>
 
       <p>
-         Designed to store and organise lunch-time memory data.
+         Designed to store and organise run-time memory data.
          The structures below are designed to serve as an interface between SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> and Civil3D elements.
          The <a href="#domain_module">domain module</a> elements, described above, wrap the data structures and are used by multiple execution environments.
       </p>
@@ -369,7 +299,7 @@
             <ul>
                <li id="realisation_form_enumeration">
                   <b>Realisation Form Enumeration</b><br>
-                  The state that defines the realisation form of the abstract loop elements indentified in the road network topology.
+                  The state that defines the realisation form of the abstract loop elements identified in the road network topology.
                   <ul>
                      <li>
                         <b>Free Flow:</b><br>
@@ -384,7 +314,6 @@
                         The entire <a href="#loop_class">loop</a> geometry collapses into one super node
                      </li>
                   </ul>
-                  <br>
                </li>
                <li id="node_type_enumeration">
                   <b>Node Type Enumeration</b><br>
@@ -408,7 +337,6 @@
                         Also represents the Origins and the Destinations of <a href="#flowelement_class">Flow Elements</a>.
                      </li>
                   </ul>
-                  <br>
                </li>
                <li id="edge_type_enumeration">
                   <b>Edge Type Enumeration</b><br>
@@ -426,14 +354,12 @@
                         <b>Arc:</b><br>
                         Represents a curve between two nodes. Using Arc-type edges helps define curvatures without segmenting the road geometry.
                      </li>
-                  </ul><br>
+                  </ul>
                </li>
                <li>
                   <b>Conflict Type Enumeration</b><br>
-                  Replicates SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>-defined conflict types
-                  <ul>
-                     <li>Further information can be found at https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html</li>
-                  </ul>
+                  Replicates SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a>-defined conflict types<br>
+                  Further information can be found at https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html
                </li>
             </ul>
          </details>
@@ -472,7 +398,7 @@
          <details>
             <summary>
                <strong>🛣️ Lane Configuration Class:</strong><br>
-               <sub>Corresponds representation of Civil3D assemblies in SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> environment.</sub>
+               <sub>Corresponds to the representation of Civil3D assemblies in SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> environment.</sub>
             </summary>
             <p>
                A LaneConfiguration instance contains a list of Lane definitions, each representing a sub-assembly in Civil3D. A LaneConfiguration element also handles metadata, such as the total road width.
@@ -517,7 +443,7 @@
                   The overall layout of the loop in the <a href="#realisation_form_enumeration"></a>SuperNode</a> form.
                </li>
             </ul>
-            <h4>Methods</h4>
+            <h4>Functionality</h4>
             <ul>
                <li><b>Access Methods</b>
                   <ul>
@@ -548,25 +474,25 @@
             </summary>
             <p>
                The Node class represents the parent definition for subclasses. The following subclasses are defined explicitly, but not mentioned in this documentation, as all the subtypes inherit from the base Node class.
-               <ul>
-                  <li>
-                     <b>Primary Node:</b><br>
-                     Represents the road >3-leg road junctions.
-                  </li>
-                  <li>
-                     <b>Auxiliary Node:</b><br>
-                     Controls the horizontal alignment of the EdgeChain polyline-based geometry.
-                  </li>
-                  <li>
-                     <b>Transition Node:</b><br>
-                     Indicates a shift in the road assembly, without being interrupted by a PrimaryNode.
-                  </li>
-                  <li>
-                     <b>Pole Node:</b><br>
-                     Indicates a dead end in the network, where the network extends in real life but is  limited by the scope in SUMOFit.
-                  </li>
-               </ul>
             </p>
+            <ul>
+               <li>
+                  <b>Primary Node:</b><br>
+                  Represents the road >3-leg road junctions.
+               </li>
+               <li>
+                  <b>Auxiliary Node:</b><br>
+                  Controls the horizontal alignment of the EdgeChain polyline-based geometry.
+               </li>
+               <li>
+                  <b>Transition Node:</b><br>
+                  Indicates a shift in the road assembly, without being interrupted by a PrimaryNode.
+               </li>
+               <li>
+                  <b>Pole Node:</b><br>
+                  Indicates a dead end in the network, where the network extends in real life but is  limited by the scope in SUMOFit.
+               </li>
+            </ul>
             <h4>Properties</h4>
             <ul>
                <li>
@@ -647,7 +573,7 @@
                <sub>An application of the Gymnasium <a href="#Towers et al., 2024">(Towers et al., 2024)</a> environment over the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> network</sub>
             </summary>
             <p>
-               SUMOFitEnv class enables SUMOFit to support integration with Gymnasium framework <a href="#Towers et al., 2024">(Towers et al., 2024)</a>. This enables agent-based exploration and optimisation of road network configurations. <br>
+               SUMOFitEnv class enables SUMOFit to integrate with Gymnasium framework <a href="#Towers et al., 2024">(Towers et al., 2024)</a>. This enables agent-based exploration and optimisation of road network configurations. <br>
                The detailed design of the environment, including action definitions, observation structures, and evaluation mechanisms, is reserved for forthcoming publications.
             </p>
          </details>
@@ -673,12 +599,10 @@
                <li>
                   <b>find netconverter:</b><br>
                   Locates the directory for the netconverter. If one is not found it opens a dialogue window to let the user locate the executable.<br>
-                  <sub>Expected to be triggered while initiating the SUMOScenarioBuilder Class instances.</sub>
                </li>
                <li>
                   <b>find sumo:</b><br>
                   Locates the SUMO <a href="#Alvarez Lopez et al., 2018">(Alvarez Lopez et al., 2018)</a> executable.<br>
-                  <sub>Expected to be triggered by the _find_sumo_binary method of the TraCIRunner class</sub>
                </li>
                <li>
                   <b>validate executable:</b><br>
@@ -705,21 +629,8 @@
                   </ul>
                </li>
                <li>
-                  <b>Methods</b>
-                  <ul>
-                     <li>
-                        <b>pars:</b><br>
-                        Parses the SSM results of the simulation from the SSM.xml file.<br>
-                     </li>
-                     <li>
-                        <b> pair key:</b><br>
-                        Gives the conflict a unique name to match the conflict entries from the perspective of the multiple road users. Returns the identical name for the conflict.<br>
-                     </li>
-                     <li>
-                        <b>parse conflicts:</b><br>
-                        Parses information from unique conflict elements across multiple road users' perspectives, ensuring the conflict is registered only once and reflected in the results.<br>
-                     </li>
-                  </ul>
+                  <b>Functionality:</b><br>
+                  Processes simulation safety outputs and consolidates conflict-related information into structured results for downstream analysis.
                </li>
             </ul>
             <h4>SUMOScenarioBuilder Class</h4>
@@ -741,7 +652,7 @@
                      </li>
                      <li>
                         <b>netconvert path:</b><br>
-                        Stores the directory of the ".sumocfg" file.
+                        Stores the directory of the netconvert executable.
                      </li>
                      <li>
                         <b>seed:</b><br>
@@ -750,21 +661,8 @@
                   </ul>
                </li>
                <li>
-                  <b>Methods</b>
-                  <ul>
-                     <li>
-                        <b>build for episode step:</b><br>
-                        Creates the simulation files at the specified path, using the episode and step IDs.<br>
-                     </li>
-                     <li>
-                        <b> write nodes xml:</b><br>
-                        Writes ".nod.xml" file to the given directory.<br>
-                     </li>
-                     <li>
-                        <b> write edges xml:</b><br>
-                        Writes ".edg.xml" file to the given directory.<br>
-                     </li>
-                  </ul>
+                  <b>Functionality</b><br>
+                  Generates simulation-ready files required by the SUMOFit framework, particularly for execution across connected environments such as machine learning and simulation workflows.
                </li>
             </ul>
             <h4>TraCI Runner Class</h4>
@@ -876,6 +774,4 @@
          </p>
       </div>
    </div>
-
-
 </body>
